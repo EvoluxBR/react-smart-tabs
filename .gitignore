@@ -1,0 +1,10 @@
+node_modules/
+*.tsbuildinfo
+.eslintcache
+.vscode/*
+dist/
+coverage/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

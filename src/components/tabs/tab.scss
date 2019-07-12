@@ -1,0 +1,15 @@
+.tab__bar{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  p{
+    border: 1px solid black;
+    margin: 2px 2px 2px 0px;
+    padding: 5px 2px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+.tab-panel:not(.active) {
+  display: none;
+}
