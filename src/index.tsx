@@ -3,10 +3,24 @@ import ReactDOM from "react-dom";
 import { Hello } from "./components/hello/Hello";
 import Tab from './components/tabs/tab';
 import TabBar from './components/tabs/tab-bar';
+const cars = [
+  {
+    name: 'corsa',
+    id: 'cs1'
+  },
+  {
+    name: 'palio',
+    id: 'cs2'
+  }
+];
 ReactDOM.render(
   <TabBar>
     <Tab id={'1'} text="first tab" active>
-      <input />
+    <select>
+  {cars.map((opt)=> {
+    return <option value={opt.id}>{opt.name}</option>
+  })}
+</select>
     </Tab>
     <Tab id={'2'} text="second tab">
     <TabBar>
