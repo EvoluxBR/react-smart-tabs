@@ -1,74 +1,51 @@
-import React, { Fragment, Children, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
+import Tab from './tab';
 import { element } from "prop-types";
 export interface TabBarProps { addTab: void, children: any };
+import uuid from 'uuid';
 
 const TabBar = (props: TabBarProps) => {
   const [tabId, setTabId] = useState('');
   const tabBar = useRef(null);
-  const [movable, setMovable] = useState('');
+  const [addedTabs, insertTabs] = useState([]);
+  const [pos, setPos] = useState({pos1: 0, pos3: 0});
+  let pos1 = useRef(0);
+  let pos3 = useRef(0);
 
-  useEffect(() => {
-    dragElement(document.getElementById("1"));
-  }, []);
-  const setActive = (tabId: string) => {
-    console.log("thi is ");
-    setTabId(tabId);
-  }
-  const checkActive = (currentId: string) => {
-    const currentTab = props.children.find((child: any) => {
-      return child.props.active && child.props.id === currentId;
-    });
-    if (currentId === tabId){
-      return true
-    }
-    if (tabId == '' && currentTab) {
-      return true
-    }
-    return false
-  }
 
-  function dragElement(elmnt: any) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById("1")) {
-
-      /* if present, the header is where you move the DIV from:*/
-      document.getElementById("1").onmousedown = dragMouseDown;
-    } else {
-      /* otherwise, move the DIV from anywhere inside the DIV:*/
-      elmnt.onmousedown = dragMouseDown;
-    }
-  
-    function dragMouseDown(e: any) {
-      e = e || window.event;
+  function dragMouseDown(e: any) {
+    e = e || window.event;
+    if (e.target.id && !e.target.id.includes('panel')) {
+      setActive(e.target.id, e);
       // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      
-      const elemn = document.getElementById("1");
+      pos3.current =  e.clientX;
+      const elemn = e.target;
+      elemn.style.left = elemn.getBoundingClientRect().left + 'px'
       elemn.style.position = "absolute";
-      const sibling = elemn.nextSibling as HTMLElement;
       const newElement = document.createElement("p");
-      newElement.textContent = "";
       newElement.id = "new";
       tabBar.current.insertBefore(newElement, elemn);
-      document.onmouseup = closeDragElement;
+      tabBar.current.onmouseup = (e: any) => closeDragElement(e, e.target);
+      tabBar.current.onmousemove = (e: any) => elementDrag(e, e.target);
       // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
       
     }
-  
-    function elementDrag(e: any) {
-      const elemn = document.getElementById("1");
-      const width = parseInt(elemn.style.width);
-      e = e || window.event;
+  }
+
+  function elementDrag(e: any, elemn: any) {
+    // const elemn = document.getElementById(tabId);
+    e = e || window.event;
+    if (e.target.id && !e.target.id.includes('panel')) {
       // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
+      pos1.current = pos3.current - e.clientX;
+      pos3.current = e.clientX;
       // set the element's new position:
-      const exactPos = elmnt.offsetLeft - pos1;
-      elmnt.style.left = exactPos + "px";
+      const exactPos = elemn.offsetLeft - pos1.current;
+      if (e.clientY > 38) {
+        console.log(e.clientY);
+        closeDragElement(null, e.target);
+      }
+      elemn.style.left = exactPos + "px";
       const sibling = elemn.nextSibling as HTMLElement;
       // const previousSibling= elemn.previousSibling as HTMLElement;
       const newElement = document.getElementById('new');
@@ -84,50 +61,101 @@ const TabBar = (props: TabBarProps) => {
         tabBar.current.insertBefore(newElement, sibling.nextSibling);
       }
       else {
-          console.log('o elemento', elemn);
-          const sibling = elemn.previousSibling.previousSibling as HTMLElement;
-          console.log(sibling.previousSibling);
-          if (sibling.offsetLeft + 60 > exactPos) {
-            // sibling.style.order = (order + 1).toString();
-            if (sibling.id !== 'new'){
-              sibling.className = 'deanimated';
-            }
+        const sibling = elemn.previousSibling && elemn.previousSibling.previousSibling as HTMLElement;
+        if (sibling && sibling.offsetLeft + 60 > exactPos) {
+          // sibling.style.order = (order + 1).toString();
+          if (sibling.id !== 'new'){
+            sibling.className = 'deanimated';
+          }
           tabBar.current.insertBefore(newElement, sibling);
           tabBar.current.insertBefore(elemn, sibling);
           // elemn.style.order = order.toString();
-         }
         }
+      }
+      tabBar.current.onmouseleave = (e: any) => closeDragElement(e, elemn);
     }
-  
-    function closeDragElement() {
-      /* stop moving when mouse button is released:*/
-      document.getElementById("1").style.position = "initial";
-      document.getElementById("1").style.left = document.getElementById("new").getBoundingClientRect().left + 'px';
-      tabBar.current.removeChild(document.getElementById("new"));
-      setActive("1");
-      document.onmouseup = null;
-      document.onmousemove = null;
+    
+  }
+
+  function closeDragElement(e: any, elemn: any) {
+    e = e || window.event;
+      elemn.style.position = "relative";
+      if (document.getElementById("new")) {
+        elemn.style.left = (document.getElementById("new").getBoundingClientRect().left + 'px');
+        tabBar.current.removeChild(document.getElementById("new"));
+      }
+      
+      elemn.style.left ='auto';
+      // setActive(tabId, null);
+      tabBar.current.onmouseup = null;
+      tabBar.current.onmousemove = null;
+      tabBar.current.onmouseleave = null;
+  }
+
+
+
+
+  // useEffect(() => {
+  //   dragElement(document.getElementById(tabId));
+  // }, [tabId]);
+  const removeTab = (id: string, e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    tabBar.current.removeChild(document.getElementById(id));
+  }
+
+  const setActive = (tabId: string, e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setTabId(tabId);
+  }
+  const addTab = () => {
+    insertTabs([...addedTabs, <Tab id={uuid()} text=" tab"><h1>5th tab</h1></Tab>]);
+  }
+  const checkActive = (currentId: string) => {
+    const currentTab = props.children.find((child: any) => {
+      return child.props.active && child.props.id === currentId;
+    });
+    if (currentId === tabId){
+      return true
     }
+    if (tabId == '' && currentTab) {
+      return true
+    }
+    return false
+  }
+
+  function dragElement(elmnt: any) {
+    let pos1 = 0, pos3 = 0;
+    if (elmnt) {
+      /* if present, the header is where you move the DIV from:*/
+      elmnt.onmousedown = dragMouseDown;
+    }
+    
   }
   return (
     <Fragment>
       <div className='tab__bar' ref={tabBar} >
-        {props.children.map((child: any, index: number) => {
+      
+        {[...props.children, ...addedTabs].map((child: any, index: number) => {
           return (
             <p 
               id={child.props.id}
+              key={child.props.id}
               className={checkActive(child.props.id) ? 'active' : ''}
-              onClick={() => setActive(child.props.id)}
+              // onClick={(e) => setActive(child.props.id, e)}
+              onMouseDown={dragMouseDown}
             >
-                {child.props.text} <span className="close">x</span>
+                {child.props.text} <span className="close" onClick={(e) => removeTab(child.props.id, e)}>x</span>
             </p>
           )
         })
         }
+        <span className="addButton" onClick={addTab}>+</span>
       </div>
-      {props.children.map((child: any) => {
+      {[...props.children, ...addedTabs].map((child: any) => {
         return (
-          <div id={`${child.props.id}-panel`} className={`tab-panel ${checkActive(child.props.id) ? "active" : '' }`}>
+          <div id={`${child.props.id}-panel`} key={`${child.props.id}-panel`} className={`tab-panel ${checkActive(child.props.id) ? "active" : '' }`}>
             {child}
           </div>
         )

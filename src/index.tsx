@@ -18,12 +18,12 @@ ReactDOM.render(
     <Tab id={'1'} text="first tab" active>
     <select>
   {cars.map((opt)=> {
-    return <option value={opt.id}>{opt.name}</option>
+    return <option key={opt.id} value={opt.id}>{opt.name}</option>
   })}
 </select>
     </Tab>
     <Tab id={'2'} text="second tab">
-    <TabBar>
+    {/* <TabBar>
       <Tab id={'a1'} text="first tab" active>
         <input />
       </Tab>
@@ -33,10 +33,13 @@ ReactDOM.render(
       <Tab id={'a3'} text="third tab">
         <h1>third tab</h1>
       </Tab>
-    </TabBar>
+    </TabBar> */}
     </Tab>
     <Tab id={'3'} text="third tab">
       <h1>third tab</h1>
+    </Tab>
+    <Tab id={'4'} text="fourth tab">
+      <h1>fourth tab</h1>
     </Tab>
   </TabBar>,
   document.getElementById("example")

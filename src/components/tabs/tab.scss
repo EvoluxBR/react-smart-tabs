@@ -20,12 +20,12 @@ body {
 .tab__bar{
   display: flex;
   flex-direction: row;
-  position: relative;
   background: #333;
   padding-left: 10px;
   padding-top: 5px;
   border-bottom: 1px solid;
   border-color: #444;
+  overflow: hidden;
   *{
     user-select: none;
   }
@@ -94,4 +94,13 @@ body {
 }
 .close {
   margin-left: auto;
+}
+.addButton{
+  color: white;
+  padding-top: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.reposition {
+  transition: all .2s ease-in-out;
 }
