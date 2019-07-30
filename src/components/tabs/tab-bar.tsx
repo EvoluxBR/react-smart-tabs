@@ -3,6 +3,7 @@ import Tab from './tab';
 import { element } from "prop-types";
 export interface TabBarProps { addTab: void, children: any };
 import uuid from 'uuid';
+import { setTimeout } from "timers";
 
 const TabBar = (props: TabBarProps) => {
   const [tabId, setTabId] = useState('');
@@ -15,13 +16,22 @@ const TabBar = (props: TabBarProps) => {
 
   function dragMouseDown(e: any) {
     e = e || window.event;
-    if (e.target.id && !e.target.id.includes('panel')) {
+    if (e.target.id.includes('tab') && !e.target.id.includes('panel')) {
+      // transform this in a util later
+      const nodeList = tabBar.current.children;
+      for (let i = 0; i < nodeList.length; i++){
+        if (nodeList[i].id !== e.target.id){
+          nodeList[i].style.pointerEvents = 'none';
+        }
+      }
       setActive(e.target.id, e);
       // get the mouse cursor position at startup:
       pos3.current =  e.clientX;
       const elemn = e.target;
-      elemn.style.left = elemn.getBoundingClientRect().left + 'px'
+      
+      elemn.style.left = elemn.getBoundingClientRect().left + 'px';
       elemn.style.position = "absolute";
+      elemn.style.width = elemn.offsetWidth + 'px';
       const newElement = document.createElement("p");
       newElement.id = "new";
       tabBar.current.insertBefore(newElement, elemn);
@@ -35,21 +45,18 @@ const TabBar = (props: TabBarProps) => {
   function elementDrag(e: any, elemn: any) {
     // const elemn = document.getElementById(tabId);
     e = e || window.event;
-    if (e.target.id && !e.target.id.includes('panel')) {
+    if (e.target.id.includes('tab') && !e.target.id.includes('panel')) {
+      console.log(e.target.id);
       // calculate the new cursor position:
       pos1.current = pos3.current - e.clientX;
       pos3.current = e.clientX;
       // set the element's new position:
       const exactPos = elemn.offsetLeft - pos1.current;
-      if (e.clientY > 38) {
-        console.log(e.clientY);
-        closeDragElement(null, e.target);
-      }
       elemn.style.left = exactPos + "px";
       const sibling = elemn.nextSibling as HTMLElement;
       // const previousSibling= elemn.previousSibling as HTMLElement;
       const newElement = document.getElementById('new');
-      if (sibling && (sibling.offsetLeft - 30) < exactPos) {
+      if (sibling && (sibling.offsetLeft - 80) < exactPos) {
         const sibling = elemn.nextSibling as HTMLElement;
           // sibling.style.order = (order - 1).toString();
           if (sibling.id !== 'new'){
@@ -62,7 +69,7 @@ const TabBar = (props: TabBarProps) => {
       }
       else {
         const sibling = elemn.previousSibling && elemn.previousSibling.previousSibling as HTMLElement;
-        if (sibling && sibling.offsetLeft + 60 > exactPos) {
+        if (sibling && sibling.offsetLeft + 90 > exactPos) {
           // sibling.style.order = (order + 1).toString();
           if (sibling.id !== 'new'){
             sibling.className = 'deanimated';
@@ -72,35 +79,52 @@ const TabBar = (props: TabBarProps) => {
           // elemn.style.order = order.toString();
         }
       }
-      tabBar.current.onmouseleave = (e: any) => closeDragElement(e, elemn);
+      elemn.onmouseleave = (e: any) => closeDragElement(e, elemn);
     }
     
   }
 
   function closeDragElement(e: any, elemn: any) {
-    e = e || window.event;
-      elemn.style.position = "relative";
-      if (document.getElementById("new")) {
-        elemn.style.left = (document.getElementById("new").getBoundingClientRect().left + 'px');
-        tabBar.current.removeChild(document.getElementById("new"));
+      if (e.target.id.includes('tab') && !e.target.id.includes('panel')) {
+        e = e || window.event;
+        if(document.getElementById("new")){
+          tabBar.current.removeChild(document.getElementById("new"));
+        }
+        elemn.style.position = "relative";
+        elemn.style.left ='auto';
+        // elemn.style.left ='auto';
+        elemn.style.width ='145px';
+        // setActive(tabId, null);
+        tabBar.current.onmouseup = null;
+        tabBar.current.onmousemove = null;
+        tabBar.current.onmouseleave = null;
+        // transform this in a util later
+        const nodeList = tabBar.current.children;
+        for (let i = 0; i < nodeList.length; i++){
+          if (nodeList[i].id !== e.target.id){
+            nodeList[i].style.pointerEvents = 'all';
+          }
+        }
       }
-      
-      elemn.style.left ='auto';
-      // setActive(tabId, null);
-      tabBar.current.onmouseup = null;
-      tabBar.current.onmousemove = null;
-      tabBar.current.onmouseleave = null;
   }
 
 
 
 
-  // useEffect(() => {
-  //   dragElement(document.getElementById(tabId));
-  // }, [tabId]);
+  // closes elements based on sibling
   const removeTab = (id: string, e: any) => {
     e.preventDefault();
     e.stopPropagation();
+    const elemn = document.getElementById(id);
+    if (checkActive(id)){
+      if (elemn.nextElementSibling){
+        setActive((elemn.nextSibling as HTMLElement).id, e);
+      }
+      else if (elemn.previousSibling){
+        setActive((elemn.previousSibling as HTMLElement).id, e);
+      }
+
+    }
     tabBar.current.removeChild(document.getElementById(id));
   }
 
@@ -110,7 +134,7 @@ const TabBar = (props: TabBarProps) => {
     setTabId(tabId);
   }
   const addTab = () => {
-    insertTabs([...addedTabs, <Tab id={uuid()} text=" tab"><h1>5th tab</h1></Tab>]);
+    insertTabs([...addedTabs, <Tab id={uuid() + 'tab'} text=" tab"><h1>5th tab</h1></Tab>]);
   }
   const checkActive = (currentId: string) => {
     const currentTab = props.children.find((child: any) => {
@@ -135,6 +159,7 @@ const TabBar = (props: TabBarProps) => {
   }
   return (
     <Fragment>
+      <div className="bar__wrapper">
       <div className='tab__bar' ref={tabBar} >
       
         {[...props.children, ...addedTabs].map((child: any, index: number) => {
@@ -142,7 +167,7 @@ const TabBar = (props: TabBarProps) => {
             <p 
               id={child.props.id}
               key={child.props.id}
-              className={checkActive(child.props.id) ? 'active' : ''}
+              className={checkActive(child.props.id) ? 'active reposition' : ''}
               // onClick={(e) => setActive(child.props.id, e)}
               onMouseDown={dragMouseDown}
             >
@@ -151,7 +176,9 @@ const TabBar = (props: TabBarProps) => {
           )
         })
         }
-        <span className="addButton" onClick={addTab}>+</span>
+        
+      </div>
+      <span className="addButton" onClick={addTab}>+</span>
       </div>
       {[...props.children, ...addedTabs].map((child: any) => {
         return (

@@ -17,21 +17,56 @@
 body {
   margin: 0;
 }
+.frm {
+  padding: 15px;
+  p {
+    color: white;
+  }
+}
+.close {
+  display: flex;
+  margin-left: auto;
+  min-height: 15px;
+  max-height: 15px;
+  min-width: 15px;
+  max-width: 15px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2px;
+  border-radius: 20%;
+  transition: background 0.05s ease-in;
+  &:hover {
+    background-color: #666;
+  }
+  &:before{
+    content: "";
+    display: block;
+    width: 1px;
+    height: 22px;
+    background-color: #383838;
+    position: absolute;
+    right: 0px;
+    top: 8px;
+    z-index: 0;
+  }
+}
 .tab__bar{
   display: flex;
   flex-direction: row;
-  background: #333;
+  background: #222;
   padding-left: 10px;
+  padding-right: 10px;
   padding-top: 5px;
-  border-bottom: 1px solid;
-  border-color: #444;
+  border-color: #383838;
   overflow: hidden;
+  user-select: none;
   *{
     user-select: none;
   }
   p {
     display: flex;
-    margin: 2px 0px 0px 0px;
+    margin: 2px -1px 0px 0px;
     padding: 10px 10px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -43,11 +78,22 @@ body {
     color: white;
     max-width: 145px;
     width: 145px;
+    transition: background 0.15s ease-in;
+    &:hover {
+      background: #292929;
+
+      &>.close {
+        &:before {
+          background: transparent;
+        }
+      }
+    }
     &.active {
-      background: #444;
+      background: #383838;
       border-color: inherit;
       width: 145px;
       z-index: 99;
+      pointer-events: all;
       &:after {
         content: '';
         position: absolute;
@@ -76,12 +122,11 @@ body {
       }
     }
   }
-  
 }
 .tab-panel {
   padding-top: 10px;
   width: 100%;
-  background: #444;
+  background: #383838;
 }
 .tab-panel:not(.active) {
   display: none;
@@ -92,15 +137,16 @@ body {
 .deanimated {
   animation: move-before 0.12s ease-out;
 }
-.close {
-  margin-left: auto;
-}
 .addButton{
   color: white;
-  padding-top: 10px;
-  padding-left: 10px;
   cursor: pointer;
+  padding-top: 6px;
+  padding-right: 10px;
 }
-.reposition {
-  transition: all .2s ease-in-out;
+.bar__wrapper{
+  display: flex;
+  background: #222;
+  width: 100%;
+  margin: 0;
+  align-items: center;
 }

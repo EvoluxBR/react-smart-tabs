@@ -15,14 +15,19 @@ const cars = [
 ];
 ReactDOM.render(
   <TabBar>
-    <Tab id={'1'} text="first tab" active>
-    <select>
-  {cars.map((opt)=> {
-    return <option key={opt.id} value={opt.id}>{opt.name}</option>
-  })}
-</select>
+    <Tab id={'1tab'} text="first tab" active>
+      <form className='frm'>
+        <p>Name</p>
+        <input/>
+        <p>Surname</p>
+        <input/>
+        <p>Adress</p>
+        <input/>
+        <p>Telephone</p>
+        <input/>
+      </form>
     </Tab>
-    <Tab id={'2'} text="second tab">
+    <Tab id={'2tab'} text="second tab">
     {/* <TabBar>
       <Tab id={'a1'} text="first tab" active>
         <input />
@@ -34,12 +39,40 @@ ReactDOM.render(
         <h1>third tab</h1>
       </Tab>
     </TabBar> */}
+    <form className='frm'>
+        <p>Name</p>
+        <input/>
+        <p>Surname</p>
+        <input/>
+        <p>Adress</p>
+        <input/>
+        <p>Telephone</p>
+        <input/>
+      </form>
     </Tab>
-    <Tab id={'3'} text="third tab">
-      <h1>third tab</h1>
+    <Tab id={'3tab'} text="third tab">
+    <form className='frm'>
+        <p>Name</p>
+        <input/>
+        <p>Surname</p>
+        <input/>
+        <p>Adress</p>
+        <input/>
+        <p>Telephone</p>
+        <input/>
+      </form>
     </Tab>
-    <Tab id={'4'} text="fourth tab">
-      <h1>fourth tab</h1>
+    <Tab id={'4tab'} text="fourth tab">
+    <form className='frm'>
+        <p>Name</p>
+        <input/>
+        <p>Surname</p>
+        <input/>
+        <p>Adress</p>
+        <input/>
+        <p>Telephone</p>
+        <input/>
+      </form>
     </Tab>
   </TabBar>,
   document.getElementById("example")
