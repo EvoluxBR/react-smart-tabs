@@ -1,16 +1,17 @@
-import React, { useRef } from "react";
+// tslint:disable-next-line:import-name
+import React from 'react';
 import './tab.scss';
 
 export interface TabProps {
-  id: string,
-  resourceData: object,
-  children: any,
-  text: string,
-  active: boolean,
-};
+  id: string;
+  resourceData: object;
+  children: any;
+  text: string;
+  active: boolean;
+}
 
+// tslint:disable-next-line:variable-name
 const Tab = (props: TabProps) => {
-  const tab = useRef(null);
   return (
     <div
       className="tab-wrapper"
@@ -20,8 +21,8 @@ const Tab = (props: TabProps) => {
         {props.children}
       </div>
     </div >
-  )
-}
+  );
+};
 Tab.defaultProps = {
   resourceData: {},
   active: false,
