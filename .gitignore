@@ -5,6 +5,7 @@ node_modules/
 *.DS_Store
 dist/
 coverage/
+yarn.lock
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
