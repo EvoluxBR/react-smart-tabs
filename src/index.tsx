@@ -1,11 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Hello } from "./components/hello/Hello";
 import Tab from './components/tabs/tab';
 import TabBar from './components/tabs/tab-bar';
 
+const component = <h1>new Tab</h1>;
+
 ReactDOM.render(
-  <TabBar>
+  <TabBar
+    closeable={true}
+    reorderable={true}
+    newTab={{ component, text: 'New Tab' }}
+  >
     <Tab id={'1tab'} text="first tab" active>
       <form className='frm'>
         <h1>Form 1</h1>

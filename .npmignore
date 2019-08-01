@@ -1,0 +1,14 @@
+src/
+.npmignore
+coverage/
+.vscode/
+.babelrc
+.stylelintrc
+rollup.config.js
+postcss.config.js
+test-preprocessor.js
+test-setup.js
+test-shim.js
+tsconfig.json
+tslint.json
+webpack.config.js

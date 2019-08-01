@@ -1,11 +1,12 @@
 {
-  "name": "tabs-react-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "react-smart-tabs",
+  "version": "0.0.9",
+  "description": "A tab component with drag and drop functionality, add and close",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --content-base ./dist --host 0.0.0.0  --hot --inline --colors --port 3000 --open"
+    "dev": "webpack-dev-server --content-base ./dist --host 0.0.0.0  --hot --inline --colors --port 3000 --open",
+    "build": "rollup -c"
   },
   "jest": {
     "setupFiles": [
@@ -36,12 +37,16 @@
     "jest": "^24.8.0",
     "postcss-preset-env": "^6.6.0",
     "react-test-renderer": "^16.8.6",
+    "rollup": "^1.17.0",
+    "rollup-plugin-scss": "^1.0.1",
+    "rollup-plugin-typescript": "^1.0.1",
     "source-map-loader": "^0.2.4",
     "stylelint": "^10.1.0",
     "stylelint-config-recommended": "^2.2.0",
     "ts-loader": "^6.0.4",
+    "tslib": "^1.10.0",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
