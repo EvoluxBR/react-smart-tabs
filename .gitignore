@@ -1,7 +1,8 @@
 node_modules/
 *.tsbuildinfo
 .eslintcache
-.vscode/*
+.vscode/
+*.DS_Store
 dist/
 coverage/
 !.vscode/settings.json
