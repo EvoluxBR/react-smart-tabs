@@ -1,12 +1,12 @@
 // tslint:disable-next-line:import-name
-import React, { Fragment, useState, useRef, useEffect } from 'react';
+import React, { Fragment, useState, useRef, useEffect, ReactElement } from 'react';
 // tslint:disable-next-line:import-name
 import Tab from './tab';
 import uuid from 'uuid';
 
 export interface TabBarProps {
+  newTab?: () => ReactElement;
   reorderable?: boolean; // boolean to activate the reorderable behavior of the tabs
-  newTab?: any; // object containing the new tab to be added
   children: any; // the tab passed as children
   closeable?: boolean; // booblean to activate the closeable behavior on tabs
 }
@@ -128,26 +128,29 @@ const TabBar = (props: TabBarProps) => {
   };
 
   const addTab = () => {
-    const newId = `${uuid()}tab`;
-    insertTabs([...addedTabs, <Tab
-                                id={newId}
-                                text={props.newTab.text}
-                              >
-                                {props.newTab.component}
-                              </Tab>,
-    ]);
-    setActive(newId, null);
+    const newTab = props.newTab();
+    insertTabs([...addedTabs, newTab]);
+    setActive(newTab.props.id, null);
   };
 
   const checkActive = (currentId: string) => {
-    const currentTab = React.Children.toArray(props.children).find((child: any) => {
-      return child.props.active && child.props.id === currentId;
+    const active = React.Children.toArray(props.children).find((child: any) => {
+      return child.props.active;
     });
+    const currentTab = (active && active.props.id === currentId) ? active : null;
     if (currentId === tabId) {
       return true;
     }
     if (tabId === '' && currentTab) {
       return true;
+    }
+    if (!currentTab && tabId === '') {
+      if (!props.children.length) {
+        return true;
+      }
+      if (props.children[0].props.id === currentId) {
+        return true;
+      }
     }
     return false;
   };
@@ -188,7 +191,6 @@ const TabBar = (props: TabBarProps) => {
         );
       })
       }
-      {/* <button onClick={() => props.addTab}>add tab</button> */}
     </Fragment>
   );
 };

@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tab subcomponent should render a Tab 1`] = `ShallowWrapper {}`;
+exports[`TabBar component should render a tab bar with first tab active 1`] = `ShallowWrapper {}`;
 
-exports[`tab subcomponent should render a tab bar with one tab inside 1`] = `ShallowWrapper {}`;
+exports[`TabBar component should render a tab bar with multiple tabs inside 1`] = `ShallowWrapper {}`;
+
+exports[`TabBar component should render a tab bar with one tab inside 1`] = `ShallowWrapper {}`;
+
+exports[`tab subcomponent should render a Tab 1`] = `ShallowWrapper {}`;

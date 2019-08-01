@@ -1,6 +1,5 @@
 // tslint:disable-next-line:import-name
 import React from 'react';
-import './tab.scss';
 
 export interface TabProps {
   id: string;
