@@ -56,6 +56,8 @@ body {
   overflow: hidden;
   user-select: none;
   list-style-type: none;
+  min-height: 40px;
+  max-height: inherit;
   margin: 0;
   *{
     user-select: none;
@@ -111,9 +113,11 @@ body {
   padding-top: 6px;
   padding-right: 10px;
 }
+
 .bar__wrapper{
   display: flex;
   background: #222;
+  min-height: 45px;
   width: 100%;
   margin: 0;
   align-items: center;
