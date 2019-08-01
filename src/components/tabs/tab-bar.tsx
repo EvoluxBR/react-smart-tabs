@@ -5,10 +5,10 @@ import Tab from './tab';
 import uuid from 'uuid';
 
 export interface TabBarProps {
-  reordable?: boolean; // booblean to active the reordable behavior of the tabs
+  reorderable?: boolean; // booblean to active the reorderable behavior of the tabs
   newTab?: any; // object containing the new tab to be added
   children: any; // the tab passed as children
-  closable?: boolean; // booblean to active the closable behavior on tabs
+  closeable?: boolean; // booblean to active the closeable behavior on tabs
 }
 
 // tslint:disable-next-line:variable-name
@@ -36,7 +36,7 @@ const TabBar = (props: TabBarProps) => {
         }
       }
       setActive(e.target.id, e);
-      if (props.reordable === true) {
+      if (props.reorderable === true) {
       // get the mouse cursor position at startup:
         pos3.current =  e.clientX;
         const elemn = e.target;
@@ -165,7 +165,7 @@ const TabBar = (props: TabBarProps) => {
               onMouseDown={dragMouseDown}
             >
               {child.props.text}
-              {props.closable &&
+              {props.closeable &&
                 <span className="close" onClick={e => removeTab(child.props.id, e)}>x</span>
               }
             </li>

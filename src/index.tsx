@@ -7,9 +7,9 @@ import TabBar from './components/tabs/tab-bar';
 const component = <h1>new Tab</h1>;
 
 ReactDOM.render(
-  <TabBar 
-    closable={true}
-    reordable={true}
+  <TabBar
+    closeable={true}
+    reorderable={true}
     newTab={{ component, text: 'New Tab' }}
   >
     <Tab id={'1tab'} text="first tab" active>
