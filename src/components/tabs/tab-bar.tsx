@@ -5,10 +5,10 @@ import Tab from './tab';
 import uuid from 'uuid';
 
 export interface TabBarProps {
-  reorderable?: boolean; // booblean to active the reorderable behavior of the tabs
+  reorderable?: boolean; // boolean to activate the reorderable behavior of the tabs
   newTab?: any; // object containing the new tab to be added
   children: any; // the tab passed as children
-  closeable?: boolean; // booblean to active the closeable behavior on tabs
+  closeable?: boolean; // booblean to activate the closeable behavior on tabs
 }
 
 // tslint:disable-next-line:variable-name
