@@ -1,6 +1,6 @@
 {
   "name": "react-smart-tabs",
-  "version": "0.0.9",
+  "version": "0.0.14",
   "description": "A tab component with drag and drop functionality, add and close",
   "main": "dist/bundle.js",
   "scripts": {
@@ -60,6 +60,7 @@
     "postcss-nested": "^4.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "rollup-plugin-terser": "^5.1.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "tslint": "^5.18.0",
