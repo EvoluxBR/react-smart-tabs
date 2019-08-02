@@ -5,13 +5,9 @@
 
 This Tab system was inspired by Chrome's tab functionality. It's very intuitive and works as you'd expect.
 
-You can use them as static tabs that just display what you want, or you can allow the user to create new tabs and/or close them.
+You can use them as static tabs that just display what you want, or you can allow the user to create new tabs and/or close them. You can also choose if reordering the tabs via drag-and-drop is something you'd like.
 
-You can also choose if reordering the tabs via drag-and-drop is something you'd like.
-
-Finally, all state persists while the tabs are mounted, so you can change tabs without losing input values.
-
-All this logic is already implemented in the package, so you don't need to worry about it. It's meant to be simple to use.
+Finally, all state persists while the tabs are mounted, so you can change tabs without losing input values. All this logic is already implemented in the package, so you don't need to worry about it. It's meant to be simple to use.
 
 ![](readme-demo.gif)
 
@@ -25,17 +21,19 @@ npm install --save react-smart-tabs
 
 ## Usage example
 
-Basically, you call <TabBar> passing it these props, depending on what you want the behavior to be:
-    - newTab={functionThatReturnsTab} - Pass this if you want to allow the user to create new tabs.
-    - reorderable - Pass this if you want the user to reorder the tabs via drag-and-drop
-    - closeable - Pass this if you want the user to be able to close tabs.
+Basically, you call *TabBar* passing it these props, depending on what you want the behavior to be:
+ - *newTab=*{functionThatReturnsTab} - Pass this if you want to allow the user to create new tabs.
+- *reorderable* - Pass this if you want the user to reorder the tabs via drag-and-drop
+- *closeable* - Pass this if you want the user to be able to close tabs.
 
-Then, inside <TabBar>, you can call however many <Tab> components as you want. Tabs receives 3 props:
-    - id - Use a UUID or something similar, so you can diferentiate between them.
-    - text - This is title text that will display on the TabBar
-    - active - Pass this to the tab you want to be active onLoad.
+Then, as children of *TabBar*, you can call however many <Tab> components as you want, including none at all.
 
-Finally, as children of the <Tab> components, you can pass the page you want to render. These can be multiple children, or a single component.
+Each *Tab* component can receive up to 3 props:
+  - *id* - Use a UUID or something similar, so you can diferentiate between them.
+  - *text* - This is title text that will display at the top, on the TabBar
+  - *active* - Pass this to the one tab you want to be active onLoad.
+
+Finally, as children of the *Tab* components, you can pass the page you want to render. These can be multiple children, or a single component. You can even nest another TabBar inside it.
 
 Here are some examples of how to use it:
 
