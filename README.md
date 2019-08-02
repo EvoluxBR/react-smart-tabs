@@ -67,9 +67,7 @@ export default App;
 ```
 
 <details>
-  <summary>And here's a <strong>more complete example</strong></summary>
-
-Here you can see a more complete, detailed example of react-smart-tabs functionality
+  <summary>And here's a <strong>more complete</strong>, detailed example of react-smart-tabs functionality (click to collapse)</summary>
 
 ```JavaScript
 import React from 'react';
