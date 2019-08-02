@@ -35,7 +35,44 @@ Each *Tab* component can receive up to 3 props:
 
 Finally, as children of the *Tab* components, you can pass the page you want to render. These can be multiple children, or a single component. You can even nest another TabBar inside it.
 
-Here are some examples of how to use it:
+<details>
+  <summary>Here's a very simple, basic example</summary>
+
+Here you can see an example of a simple, static tab bar.
+
+```JavaScript
+import React from 'react';
+import { Tab, TabBar } from 'react-smart-tabs';
+import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
+
+function App() {
+
+  return (
+    <div className="App">
+      <TabBar>
+        <Tab id='YourTabId1' text="First Tab">
+          <h1>This is the first Tab page</h1>
+          <p>Its an active tab with multiple children.</p>
+          <input/>
+        </Tab>
+        <Tab id='YourTabId2' text="Second Tab">
+          <h1>This is the second Tab page</h1>
+        </Tab>
+        <Tab id='YourTabId3' text="Third Tab">
+          <h1>This is the third Tab page</h1>
+        </Tab>
+      </TabBar>
+    </div>
+  );
+}
+
+export default App;
+```
+</details>
+<details>
+  <summary>And here's a more complete one</summary>
+
+Here you can see a more complete, detailed example of react-smart-tabs functionality
 
 ```JavaScript
 import React from 'react';
@@ -142,6 +179,7 @@ function App() {
 
 export default App;
 ```
+</details>
 
 
 ## Release History
