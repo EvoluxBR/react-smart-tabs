@@ -128,7 +128,13 @@ const TabBar = (props: TabBarProps) => {
   };
 
   const addTab = () => {
-    const newTab = props.newTab();
+    let newTab: ReactElement = props.newTab();
+    if (!newTab.props.id) {
+      const idKey = `${uuid()}tab`;
+      newTab = <Tab text={newTab.props.text} id={idKey}>
+                  {newTab.props.children}
+               </Tab>;
+    }
     insertTabs([...addedTabs, newTab]);
     setActive(newTab.props.id, null);
   };
@@ -177,7 +183,9 @@ const TabBar = (props: TabBarProps) => {
         }
 
       </ul>
-      <span className="addButton" onClick={addTab}>+</span>
+      {props.newTab &&
+        <span className="addButton" onClick={addTab}>+</span>
+      }
       </div>
       {[...React.Children.toArray(props.children), ...addedTabs].map((child: any) => {
         return (
