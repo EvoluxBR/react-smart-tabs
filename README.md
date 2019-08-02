@@ -3,7 +3,7 @@
 
 [![NPM Version][npm-image]][npm-url] [![Downloads Stats][npm-downloads]][npm-url]
 
-This Tab system was inspired by Chrome's tab functionality. It's very intuitive and works as you'd expect.
+This tab system was inspired by chrome's tab functionality. It's very intuitive and works as you'd expect.
 
 You can use them as static tabs that just display what you want, or you can allow the user to create new tabs and/or close them. You can also choose if reordering the tabs via drag-and-drop is something you'd like.
 
@@ -21,7 +21,7 @@ npm install --save react-smart-tabs
 
 ## Usage example
 
-Basically, you call *TabBar* passing it these props, depending on what you want the behavior to be:
+ou call *TabBar* passing it these props, depending on what you want the behavior to be:
  - *newTab=*{functionThatReturnsTab} - Pass this if you want to allow the user to create new tabs.
 - *reorderable* - Pass this if you want the user to reorder the tabs via drag-and-drop
 - *closeable* - Pass this if you want the user to be able to close tabs.
@@ -35,28 +35,80 @@ Each *Tab* component can receive up to 3 props:
 
 Finally, as children of the *Tab* components, you can pass the page you want to render. These can be multiple children, or a single component. You can even nest another TabBar inside it.
 
-Here you can see an example of a simple, static tab bar.
+** Most basic example. Static Tab Bar with predefined tabs:**
 
 ```JavaScript
 import React from 'react';
 import { Tab, TabBar } from 'react-smart-tabs';
 import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
 
-function App() {
+const App = () => (
+  <div className="App">
+    <TabBar>
+      <Tab id='YourTabId1' text="First Tab">
+        <div>
+          <p>
+            Content for the first tab
+          </p>
+        </div>
+      </Tab>
+      <Tab id='YourTabId2' text="Second Tab">
+        <div>
+          <p>
+            Content for the second tab
+          </p>
+        </div>
+      </Tab>
+    </TabBar>
+  </div>
+);
+
+export default App;
+```
+
+** Medium example. Tab Bar that allows the user to create new tabs, and close existing tabs, and reorder them by via drag-and-drop:**
+
+```JavaScript
+import React from 'react';
+import { Tab, TabBar } from 'react-smart-tabs';
+import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
+
+const App = () => {
+  let dumbId = 0; // Use UUID, or something smarter. This is just an example.
+
+  // This is what the function passed to newTab should look like.
+  const AddNewTab = () => {
+    // You can customize this however you want.
+    dumbId++
+    return (
+      <Tab id={dumbId} text="New Tab">
+        <h1>
+          This is a brand new tab. Imagine the possibilities.
+        </h1>
+      </Tab>
+    )
+  }
 
   return (
     <div className="App">
-      <TabBar>
+      <TabBar
+        newTab={createNewTab} // Function that returns a <Tab>
+        closeable // Allows the user to close tabs
+        reorderable // Allows the user to reorder tabs via drag-and-drop
+      >
         <Tab id='YourTabId1' text="First Tab">
-          <h1>This is the first Tab page</h1>
-          <p>Its an active tab with multiple children.</p>
-          <input/>
+          <div>
+            <p>
+              Content for the first tab
+            </p>
+          </div>
         </Tab>
         <Tab id='YourTabId2' text="Second Tab">
-          <h1>This is the second Tab page</h1>
-        </Tab>
-        <Tab id='YourTabId3' text="Third Tab">
-          <h1>This is the third Tab page</h1>
+          <div>
+            <p>
+              Content for the second tab
+            </p>
+          </div>
         </Tab>
       </TabBar>
     </div>
@@ -66,14 +118,17 @@ function App() {
 export default App;
 ```
 
+
 <details>
-  <summary>And here's a <strong>more complete</strong>, detailed example of react-smart-tabs functionality (click to collapse)</summary>
+  <summary>And here's a <strong>more complex</strong>, detailed example of all the react-smart-tabs functionalities (click to collapse)</summary>
 
 ```JavaScript
 import React from 'react';
 import { Tab, TabBar } from 'react-smart-tabs';
-import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
+//This is our default CSS. Feel free to make your own.
+import 'react-smart-tabs/dist/bundle.css';
 
+// Here you can see a Component with a static tab bar within.
 const SecondTabPage = () => (
   <div>
     <h1>
@@ -100,6 +155,7 @@ const SecondTabPage = () => (
   </div>
 )
 
+// And here's a simple component with a form
 const ThirdTabPage = () => (
   <div>
     <h1>
@@ -148,7 +204,7 @@ function App() {
   return (
     <div className="App">
       <TabBar
-        newTab={createNewTab}
+        newTab={createNewTab} // Allows you to add new tabs
         reorderable // Defines if you can reorder the tabs by drag and drop
         closeable // Defines if you can close tabs
       >
