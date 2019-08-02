@@ -23,9 +23,9 @@
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["React", "Tabs", "Hooks"],
+  "author": "Gusavo Freire Santos",
+  "license": "MIT",
   "devDependencies": {
     "@types/enzyme": "^3.10.1",
     "@types/jest": "^24.0.15",
