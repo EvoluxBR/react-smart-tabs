@@ -78,7 +78,7 @@ const ThirdTabPage = () => (
         Form inside the third tab.
       </h1>
       <p>
-        Notice that it doesn't lose the input content.
+        Notice that it doesnt lose the input content.
       </p>
       <p>
         Name
@@ -126,7 +126,7 @@ function App() {
           active // Decides if this tab is the active one when you mount
         >
           <h1>This is the first Tab page</h1>
-          <p>It's an active tab with multiple children.</p>
+          <p>Its an active tab with multiple children.</p>
           <input/>
         </Tab>
         <Tab id='YourTabId2' text="Second Tab">
