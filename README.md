@@ -1,12 +1,19 @@
 # react-smart-tabs
 > A simple to use tab system built with react.
 
-[![NPM Version][npm-image]][npm-url][![Downloads Stats][npm-downloads]][npm-url]
+[![NPM Version][npm-image]][npm-url] [![Downloads Stats][npm-downloads]][npm-url]
 
-This Tab system was inspired by Chrome's tab functionality.
-This is a simple to use tab system built to persist each tab's state even when you toggle a different tab. It will only display
-<!-- GIF EXAMPLE -->
-![](readme-demo.png)
+This Tab system was inspired by Chrome's tab functionality. It's very intuitive and works as you'd expect.
+
+You can use them as static tabs that just display what you want, or you can allow the user to create new tabs and/or close them.
+
+You can also choose if reordering the tabs via drag-and-drop is something you'd like.
+
+Finally, all state persists while the tabs are mounted, so you can change tabs without losing input values.
+
+All this logic is already implemented in the package, so you don't need to worry about it. It's meant to be simple to use.
+
+![](readme-demo.gif)
 
 
 ## Installation
@@ -18,29 +25,45 @@ npm install --save react-smart-tabs
 
 ## Usage example
 
-Here's an example of how to use it:
+Basically, you call <TabBar> passing it these props, depending on what you want the behavior to be:
+    - newTab={functionThatReturnsTab} - Pass this if you want to allow the user to create new tabs.
+    - reorderable - Pass this if you want the user to reorder the tabs via drag-and-drop
+    - closeable - Pass this if you want the user to be able to close tabs.
+
+Then, inside <TabBar>, you can call however many <Tab> components as you want. Tabs receives 3 props:
+    - id - Use a UUID or something similar, so you can diferentiate between them.
+    - text - This is title text that will display on the TabBar
+    - active - Pass this to the tab you want to be active onLoad.
+
+Finally, as children of the <Tab> components, you can pass the page you want to render. These can be multiple children, or a single component.
+
+Here are some examples of how to use it:
 
 ```sh
 import React from 'react';
 import { Tab, TabBar } from 'react-smart-tabs';
 import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
 
-const Component = <h1>New Tab</h1>
-
-const Title = place => <h1>This is the {place} tab content page</h1>
-
 const SecondTabPage = () => (
   <div>
-    <Title place="Second"/>
-    <TabBar> {/* Notice that passing no props turns them into static tabs */}
-      <Tab id='yourSubTabId1'>
-        contents of subtab 1
+    <h1>
+      Second tab w/ static subtabs
+    </h1>
+    <TabBar>
+      <Tab id='yourSubTabId1' text="subtab1">
+        <h3>
+          subtab contents 1
+        </h3>
       </Tab>
-      <Tab id='yourSubTabId2'>
-        contents of subtab 2
+      <Tab id='yourSubTabId2' text="subtab2">
+        <h3>
+          subtab contents 2
+        </h3>
       </Tab>
-      <Tab id='yourSubTabId3'>
-        contents of subtab 3
+      <Tab id='yourSubTabId3' text="subtab3">
+        <h3>
+          subtab contents 3
+        </h3>
         <input/>
       </Tab>
     </TabBar>
@@ -49,7 +72,9 @@ const SecondTabPage = () => (
 
 const ThirdTabPage = () => (
   <div>
-    <Title place="Third"/>
+    <h1>
+      Third tab
+    </h1>
     <form className='frm'>
       <h1>
         Form inside the third tab.
@@ -77,10 +102,23 @@ const ThirdTabPage = () => (
   </div>
 )
 function App() {
+  let dumbId = 0; // Use UUID to make your IDs. This is just a quick, dumb example.
+
+  const createNewTab = () => {
+    // This is what the function passed to newTab should look like.
+    // You can customize this however you want.
+    dumbId++
+    return (
+      <Tab id={dumbId} text="Newly Added Tab">
+        This is a newly created tab
+      </Tab>
+    )
+  }
+
   return (
     <div className="App">
       <TabBar
-        newTab={{ Component, text: 'Brand New Tab' }}
+        newTab={createNewTab}
         reorderable // Defines if you can reorder the tabs by drag and drop
         closeable // Defines if you can close tabs
       >
@@ -89,7 +127,7 @@ function App() {
           text="First Tab" // The text that will display in the tab bar
           active // Decides if this tab is the active one when you mount
         >
-          <h1>This is the first Tab</h1>
+          <h1>This is the first Tab page</h1>
           <h3>It's an active tab with multiple children.</h3>
           <input/>
         </Tab>
@@ -105,7 +143,6 @@ function App() {
 }
 
 export default App;
-
 ```
 
 
@@ -116,6 +153,7 @@ export default App;
 
 
 ## Want to contribute?
+
 Follow these steps:
 0. Check the open issues. Assign one to yourself or create one.
 1. Fork the repository (<https://github.com/EvoluxBR/react-smart-tabs/fork>)
