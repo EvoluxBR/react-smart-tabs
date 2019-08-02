@@ -6,9 +6,8 @@ import uuid from 'uuid';
 const TabInterface = () => {
   const [number, setNumber] = useState(0);
   const createNew = () => {
-    const idKey = `${uuid()}tab`;
     setNumber(number + 1);
-    return <Tab id={idKey} text="New Tab">
+    return <Tab text="New Tab">
             <h1>{number}</h1>
            </Tab>;
   };

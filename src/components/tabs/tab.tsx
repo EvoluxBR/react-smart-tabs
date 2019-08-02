@@ -2,7 +2,7 @@
 import React from 'react';
 
 export interface TabProps {
-  id: string;
+  id?: string;
   resourceData: object;
   children: any;
   text: string;
