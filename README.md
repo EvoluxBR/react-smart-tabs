@@ -35,9 +35,6 @@ Each *Tab* component can receive up to 3 props:
 
 Finally, as children of the *Tab* components, you can pass the page you want to render. These can be multiple children, or a single component. You can even nest another TabBar inside it.
 
-<details>
-  <summary>Here's a very simple, basic example</summary>
-
 Here you can see an example of a simple, static tab bar.
 
 ```JavaScript
@@ -68,9 +65,9 @@ function App() {
 
 export default App;
 ```
-</details>
+
 <details>
-  <summary>And here's a more complete one</summary>
+  <summary>And here's a <strong>more complete example</strong></summary>
 
 Here you can see a more complete, detailed example of react-smart-tabs functionality
 
