@@ -1,46 +1,29 @@
-# react-smart-tabs
+![](./readme/readme-logo.gif "react-smart-tabs")
 > A simple to use tab system built with react.
 
 [![NPM Version][npm-image]][npm-url] [![Downloads Stats][npm-downloads]][npm-url]
 
-This tab system was inspired by chrome's tab functionality. It's very intuitive and works as you'd expect.
+## Description
+[react-smart-tabs](https://github.com/EvoluxBR/react-smart-tabs/) is an intuitive tab system built with react, inspired by chrome's tab functionality.
 
-You can use them as static tabs that just display what you want, or you can allow the user to create new tabs and/or close them. You can also choose if reordering the tabs via drag-and-drop is something you'd like.
+They're simple to use both as a developer and as a user, and take care of all the tab handling logic, so all you need to care about is what components to display.
 
-Finally, all state persists while the tabs are mounted, so you can change tabs without losing input values. All this logic is already implemented in the package, so you don't need to worry about it. It's meant to be simple to use.
-
-![](readme-demo.gif)
-
-
-## Installation
-
-```sh
-npm install --save react-smart-tabs
-```
-
+### Features
+- Option to allow tabs to be added
+- Option to allow tabs to be closed
+- Option to allow tabs to be reordered via drag-and-drop
 
 ## Usage example
 
-ou call *TabBar* passing it these props, depending on what you want the behavior to be:
- - *newTab=*{functionThatReturnsTab} - Pass this if you want to allow the user to create new tabs.
-- *reorderable* - Pass this if you want the user to reorder the tabs via drag-and-drop
-- *closeable* - Pass this if you want the user to be able to close tabs.
+### Most basic example. Static Tab Bar with predefined tabs:
 
-Then, as children of *TabBar*, you can call however many <Tab> components as you want, including none at all.
-
-Each *Tab* component can receive up to 3 props:
-  - *id* - Use a UUID or something similar, so you can diferentiate between them.
-  - *text* - This is the title text that will display at the top, on the TabBar
-  - *active* - Pass this to the one tab you want to be active onLoad.
-
-Finally, as children of the *Tab* components, you can pass the page you want to render. These can be multiple children, or a single component. You can even nest another TabBar inside it.
-
-** Most basic example. Static Tab Bar with predefined tabs:**
+![](./readme/readme-static-tabs.gif)
 
 ```JavaScript
 import React from 'react';
 import { Tab, TabBar } from 'react-smart-tabs';
-import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
+//This is our default CSS. Feel free to make your own.
+import 'react-smart-tabs/dist/bundle.css';
 
 const App = () => (
   <div className="App">
@@ -66,7 +49,10 @@ const App = () => (
 export default App;
 ```
 
-** Medium example. Tab Bar that allows the user to create new tabs, and close existing tabs, and reorder them by via drag-and-drop:**
+### Medium example. Tab Bar that allows the user to create new tabs, and close existing tabs, and reorder them by via drag-and-drop:
+
+![](./readme/readme-medium-tabs.gif)
+
 
 ```JavaScript
 import React from 'react';
@@ -92,7 +78,7 @@ const App = () => {
   return (
     <div className="App">
       <TabBar
-        newTab={createNewTab} // Function that returns a <Tab>
+        newTab={AddNewTab} // Function that returns a <Tab>
         closeable // Allows the user to close tabs
         reorderable // Allows the user to reorder tabs via drag-and-drop
       >
@@ -120,7 +106,10 @@ export default App;
 
 
 <details>
-  <summary>And here's a <strong>more complex</strong>, detailed example of all the react-smart-tabs functionalities (click to collapse)</summary>
+  <summary>And here's a <strong>more complex</strong>, detailed example of all the react-smart-tabs functionalities, including nesting tabs (click to collapse)</summary>
+
+![](./readme/readme-full-tabs.gif)
+
 
 ```JavaScript
 import React from 'react';
@@ -231,6 +220,22 @@ function App() {
 export default App;
 ```
 </details>
+
+
+## Installation
+
+Install the lib as a dependency
+```sh
+npm install --save react-smart-tabs
+```
+
+Then import and use them like the demos above.
+```JavaScript
+import { Tab, TabBar } from 'react-smart-tabs';
+//This is our default CSS. You can use it or make your own.
+import 'react-smart-tabs/dist/bundle.css';
+
+```
 
 
 ## Release History
