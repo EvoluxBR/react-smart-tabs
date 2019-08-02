@@ -30,14 +30,14 @@ Then, as children of *TabBar*, you can call however many <Tab> components as you
 
 Each *Tab* component can receive up to 3 props:
   - *id* - Use a UUID or something similar, so you can diferentiate between them.
-  - *text* - This is title text that will display at the top, on the TabBar
+  - *text* - This is the title text that will display at the top, on the TabBar
   - *active* - Pass this to the one tab you want to be active onLoad.
 
 Finally, as children of the *Tab* components, you can pass the page you want to render. These can be multiple children, or a single component. You can even nest another TabBar inside it.
 
 Here are some examples of how to use it:
 
-```sh
+```JavaScript
 import React from 'react';
 import { Tab, TabBar } from 'react-smart-tabs';
 import 'react-smart-tabs/dist/bundle.css'; //This is our default CSS. Feel free to make your own.
