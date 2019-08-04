@@ -120,7 +120,12 @@ const TabBar = (props: TabBarProps) => {
       }
 
     }
-    tabBar.current.removeChild(document.getElementById(id));
+
+    const tabNode = document.getElementById(id);
+    tabBar.current.removeChild(tabNode);
+
+    const panelNode = document.getElementById(`${id}-panel`);
+    panelNode.parentNode.removeChild(panelNode);
   };
 
   const setActive = (tabId: string, e: any) => {
