@@ -23,7 +23,11 @@
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     }
   },
-  "keywords": ["React", "Tabs", "Hooks"],
+  "keywords": [
+    "React",
+    "Tabs",
+    "Hooks"
+  ],
   "author": "Gusavo Freire Santos",
   "license": "MIT",
   "devDependencies": {
@@ -52,6 +56,8 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "@testing-library/react": "^8.0.7",
+    "@testing-library/react-hooks": "^1.1.0",
     "@types/uuid": "^3.4.5",
     "autoprefixer": "^9.6.1",
     "html-webpack-plugin": "^3.2.0",

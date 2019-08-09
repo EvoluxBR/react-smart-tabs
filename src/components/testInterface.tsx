@@ -30,7 +30,7 @@ const TabInterface = () => {
           <input/>
         </form>
       </Tab>
-      <Tab id={'2tab'} text="first tab">
+      <Tab id={'2tab'} text="second tab">
         <form className='frm'>
           <h1>Form 2</h1>
           <p>Name</p>
