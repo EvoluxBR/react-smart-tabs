@@ -55,36 +55,12 @@ const TabBar = (props: TabBarProps) => {
   );
 
   function getRef(tab: ReactElement) {
-    console.log('entrou');
     return refList.current.find(item => item.current.id === tab.props.id);
   }
   function exactPos(e: React.MouseEvent<HTMLElement>) {
     pos1.current = pos3.current - e.clientX;
     pos3.current = e.clientX;
     return getRef(dragged).current.offsetLeft - pos1.current;
-  }
-  function moveFront() {
-    const newOne = tabList.find((item) => {
-      return item.props.id === 'new';
-    });
-    let previous = tabList.indexOf(dragged) + 1;
-    if (previous === tabList.indexOf(newOne)) {
-      previous += 1;
-    }
-    getRef(tabList[previous]).current.className = 'animated';
-    array_move(tabList, tabList.indexOf(newOne), previous);
-    array_move(tabList, tabList.indexOf(dragged), previous);
-    setTabList([...tabList]);
-  }
-  function moveBack() {
-    const newOne = tabList.find((item) => {
-      return item.props.id === 'new';
-    });
-    const previous = tabList.indexOf(dragged) - 2;
-    getRef(tabList[previous]).current.className = 'deanimated';
-    array_move(tabList, tabList.indexOf(newOne), previous);
-    array_move(tabList, tabList.indexOf(dragged), previous);
-    setTabList([...tabList]);
   }
 
   function array_move(arr: any[], oldIndex: number, newIndex: number) {
@@ -93,11 +69,8 @@ const TabBar = (props: TabBarProps) => {
   }
 
   function dragMouseDown(e: React.MouseEvent<HTMLElement>, tab: ReactElement) {
-    // console.log('first');
     const elemn = getRef(tab).current;
-    // console.log({ tab })
     setDrag(tab);
-    // console.log({ tabBar })
     if (elemn.id) {
       setActive(tab.props.id, e);
       if (props.reorderable === true) {
@@ -115,10 +88,6 @@ const TabBar = (props: TabBarProps) => {
         } else {
           nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
         }
-        // refList.current.push(createRef<HTMLLIElement>());
-        // const reordered = [newElement, ...tabList];
-        // array_move(reordered, 0, reordered.indexOf(tab) - 1);
-        // setTabList([...reordered]);
       }
     }
   }
