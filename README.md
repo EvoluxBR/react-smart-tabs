@@ -1,4 +1,4 @@
-![](./readme/readme-logo.gif "react-smart-tabs")
+![](./readme/react-smart-tabs-logo.png "react-smart-tabs")
 > A simple to use tab system built with react.
 
 [![NPM Version][npm-image]][npm-url] [![Downloads Stats][npm-downloads]][npm-url]
@@ -12,6 +12,8 @@ They're simple to use both as a developer and as a user, and take care of all th
 - Option to allow tabs to be added
 - Option to allow tabs to be closed
 - Option to allow tabs to be reordered via drag-and-drop
+- Tab nesting
+- Data Persistence
 
 ## Usage example
 
@@ -49,7 +51,7 @@ const App = () => (
 export default App;
 ```
 
-### Medium example. Tab Bar that allows the user to create new tabs, and close existing tabs, and reorder them by via drag-and-drop:
+### Medium example. Tab Bar that allows the user to create new tabs, close existing tabs, and reorder them by via drag-and-drop:
 
 ![](./readme/readme-medium-tabs.gif)
 
