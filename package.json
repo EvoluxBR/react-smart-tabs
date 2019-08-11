@@ -18,6 +18,10 @@
       "tsx",
       "js"
     ],
+    "mapCoverage": true,
+    "collectCoverageFrom": [
+      "src/components/tabs/**/*.{ts,tsx}"
+    ],
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js",
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"

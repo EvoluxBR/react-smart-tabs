@@ -3,7 +3,7 @@ import scss from 'rollup-plugin-scss';
 import {terser} from "rollup-plugin-terser";
 
 export default {
-  input: './src/components/tabs/index.tsx',
+  input: './src/components/index.tsx',
   external: ['react', 'uuid'],
   output: {
     file: './dist/bundle.js',
