@@ -93,6 +93,7 @@ const TabBar = (props: TabBarProps) => {
     const currentElement = getRef(dragged).current;
     const nextElement = currentElement.nextSibling as HTMLElement;
     const previousElement = currentElement.previousSibling as HTMLElement;
+    // all this -1 margins is for covering the aditional line after the tab
     const placeholderMargin = currentElement.getBoundingClientRect().width - 1;
     currentElement.style.left = `${position}px`;
     if (nextElement && nextElement.getBoundingClientRect().left - 70 < position) {
@@ -100,8 +101,8 @@ const TabBar = (props: TabBarProps) => {
         previousElement.style.marginRight = '-1px';
         previousElement.style.marginLeft = '0';
       }
-      nextElement.style.marginLeft = '-1px';
-      nextElement.style.marginRight = `${placeholderMargin}px`;
+      nextElement.style.marginLeft = '0px';
+      nextElement.style.marginRight = `${placeholderMargin - 1}px`;
       nextElement.className = 'animated';
       arrayMove(tabList, tabList.indexOf(dragged), tabList.indexOf(dragged) + 1);
       setTabList([...tabList]);
