@@ -98,6 +98,7 @@ describe('TabBar component', () => {
     expect(firstElelment.props.id).toEqual('reordered');
     expect(secondElelment.props.id).toEqual('movable');
   });
+
   it('should close a Tab', () => {
 
     const result = mount(
