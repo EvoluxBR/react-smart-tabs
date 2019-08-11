@@ -77,6 +77,34 @@ body {
     max-width: 145px;
     width: 145px;
     transition: background 0.15s ease-in;
+    &.active {
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        right: -3px;
+        border: 1px solid;
+        border-color: inherit;
+        border-top: 0;
+        border-right: 0;
+        border-bottom-left-radius: 5px;
+        height: 3px;
+        width: 3px;
+      }
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: -3px;
+        border: 1px solid;
+        border-color: inherit;
+        border-top: 0;
+        border-left: 0;
+        border-bottom-right-radius: 5px;
+        height: 3px;
+        width: 3px;
+      }
+    }
     &:hover {
       background: #292929;
 
@@ -121,4 +149,5 @@ body {
   width: 100%;
   margin: 0;
   align-items: center;
+  border-bottom: 7px solid #383838;
 }

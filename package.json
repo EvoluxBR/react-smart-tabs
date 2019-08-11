@@ -18,12 +18,20 @@
       "tsx",
       "js"
     ],
+    "mapCoverage": true,
+    "collectCoverageFrom": [
+      "src/components/tabs/**/*.{ts,tsx}"
+    ],
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js",
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     }
   },
-  "keywords": ["React", "Tabs", "Hooks"],
+  "keywords": [
+    "React",
+    "Tabs",
+    "Hooks"
+  ],
   "author": "Gusavo Freire Santos",
   "license": "MIT",
   "devDependencies": {
