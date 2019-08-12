@@ -17,6 +17,7 @@ export interface TabBarProps {
   reorderable?: boolean; // boolean to activate the reorderable behavior of the tabs
   children: any; // the tab passed as children
   closeable?: boolean; // booblean to activate the closeable behavior on tabs
+  onTabClick?: () => void;
   // Function to be called when the tab List changes it receives the modified tabList
   onTabsChange?: (modifiedList: any, tabList?: any) => void;
 }
@@ -160,6 +161,7 @@ const TabBar = (props: TabBarProps) => {
   // set a tab as the active tab based on it's id
   const setActive = (tabId: string, e: any) => {
     setTabId(tabId);
+    props.onTabClick();
   };
 
   // function to add a new element on the list of tabs

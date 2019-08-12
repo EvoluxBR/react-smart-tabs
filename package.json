@@ -1,6 +1,6 @@
 {
   "name": "react-smart-tabs",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A tab component with drag and drop functionality, add and close",
   "main": "dist/bundle.js",
   "scripts": {
