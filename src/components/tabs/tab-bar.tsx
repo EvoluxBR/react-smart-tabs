@@ -231,7 +231,9 @@ const TabBar = (props: TabBarProps) => {
         }
 
       </ul>
-        <span className="addButton" onClick={addTab}>+</span>
+        {props.newTab &&
+          <span className="addButton" onClick={addTab}>+</span>
+        }
       </div>
   {tabList.map((child: any) => {
     return (
