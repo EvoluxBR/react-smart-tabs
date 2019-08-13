@@ -1,12 +1,13 @@
 // tslint:disable-next-line:import-name
 import React from 'react';
+import uuid = require('uuid');
 
 export interface TabProps {
   id?: string;
-  resourceData: object;
+  resourceData?: object;
   children: any;
   text: string;
-  active: boolean;
+  active?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -22,8 +23,10 @@ const Tab = (props: TabProps) => {
     </div >
   );
 };
-Tab.defaultProps = {
-  resourceData: {},
-  active: false,
-};
+Tab.defaultProps = Object.create({}, {
+  id: {
+    enumerable: true,
+    get: () => uuid(),
+  },
+});
 export default Tab;

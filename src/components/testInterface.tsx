@@ -17,7 +17,7 @@ const TabInterface = () => {
       reorderable={true}
       newTab={createNew}
     >
-      <Tab id="1tab" text="first tab">
+      <Tab text="first tab">
         <form className="frm">
           <h1>Form 1</h1>
           <p>Name</p>
@@ -30,7 +30,7 @@ const TabInterface = () => {
           <input/>
         </form>
       </Tab>
-      <Tab id="2tab" text="second tab">
+      <Tab text="second tab">
         <form className="frm">
           <h1>Form 2</h1>
           <p>Name</p>

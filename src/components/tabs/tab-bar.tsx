@@ -161,7 +161,9 @@ const TabBar = (props: TabBarProps) => {
   // set a tab as the active tab based on it's id
   const setActive = (tab: ReactElement) => {
     setTabId(tab.props.id);
-    props.onTabClick(tab);
+    if (props.onTabClick) {
+      props.onTabClick(tab);
+    }
   };
 
   // function to add a new element on the list of tabs
