@@ -1,6 +1,6 @@
 // tslint:disable-next-line:import-name
 import React from 'react';
-import uuid = require('uuid');
+import uuid from 'uuid';
 
 export interface TabProps {
   id?: string;
