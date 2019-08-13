@@ -17,7 +17,7 @@ export interface TabBarProps {
   reorderable?: boolean; // boolean to activate the reorderable behavior of the tabs
   children: any; // the tab passed as children
   closeable?: boolean; // booblean to activate the closeable behavior on tabs
-  onTabClick?: () => void;
+  onTabClick?: (tab: ReactElement) => void;
   // Function to be called when the tab List changes it receives the modified tabList
   onTabsChange?: (modifiedList: any, tabList?: any) => void;
 }
@@ -70,7 +70,7 @@ const TabBar = (props: TabBarProps) => {
     if (!props.reorderable) return;
     const elemn = getRef(tab).current;
     setDrag(tab);
-    setActive(tab.props.id, e);
+    setActive(tab);
       // get the mouse cursor position at startup:
     pos3.current =  e.clientX;
     elemn.style.left = `${elemn.getBoundingClientRect().left}px`;
@@ -148,9 +148,9 @@ const TabBar = (props: TabBarProps) => {
       const backTab = tabList[tabList.indexOf(tab) + 1];
       const frontTab = tabList[tabList.indexOf(tab) - 1];
       if (backTab) {
-        setActive(backTab.props.id, e);
+        setActive(backTab);
       } else {
-        setActive(frontTab.props.id, e);
+        setActive(frontTab);
       }
     }
     const removed = tabList;
@@ -159,9 +159,9 @@ const TabBar = (props: TabBarProps) => {
   };
 
   // set a tab as the active tab based on it's id
-  const setActive = (tabId: string, e: any) => {
-    setTabId(tabId);
-    props.onTabClick();
+  const setActive = (tab: ReactElement) => {
+    setTabId(tab.props.id);
+    props.onTabClick(tab);
   };
 
   // function to add a new element on the list of tabs
@@ -178,7 +178,7 @@ const TabBar = (props: TabBarProps) => {
                </Tab>;
     }
     setTabList([...tabList, newTab]);
-    setActive(newTab.props.id, null);
+    setActive(newTab);
   };
 
   // function the check if the tab is the active one
