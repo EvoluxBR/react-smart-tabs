@@ -114,4 +114,20 @@ describe('TabBar component', () => {
     result.find('.close').first().simulate('click');
     expect(result.find('#closed').exists()).toBeFalsy;
   });
+
+  it('should render 2 tabs with random ids', () => {
+    const result = mount(
+      <TabBar>
+        <Tab text="firstTab">
+          <h1>Test</h1>
+        </Tab>
+        <Tab text="firstTab">
+          <h1>Test</h1>
+        </Tab>
+      </TabBar>,
+    );
+    const firstTab = result.find('li').first();
+    const secondTab = result.find('li').last();
+    expect(firstTab.props().id !== secondTab.props().id).toBeTruthy;
+  });
 });
