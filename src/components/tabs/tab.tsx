@@ -3,7 +3,6 @@ import React from 'react';
 import uuid from 'uuid';
 
 export interface TabProps {
-  id?: string;
   resourceData?: object;
   children: any;
   text: string;
@@ -15,7 +14,7 @@ const Tab = (props: TabProps) => {
   return (
     <div
       className="tab-wrapper"
-      key={props.id}
+      key={uuid()}
     >
       <div>
         {props.children}
@@ -23,10 +22,4 @@ const Tab = (props: TabProps) => {
     </div >
   );
 };
-Tab.defaultProps = Object.create({}, {
-  id: {
-    enumerable: true,
-    get: () => uuid(),
-  },
-});
 export default Tab;

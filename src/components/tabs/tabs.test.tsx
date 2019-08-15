@@ -5,11 +5,10 @@ import Tab from './tab';
 // tslint:disable-next-line:import-name
 import TabBar from './tab-bar';
 
-const component = <h1>Test</h1>;
 describe('tab subcomponent', () => {
   it('should render a Tab', () => {
     const result = shallow(
-      <Tab id="1" text="firstTab">
+      <Tab text="firstTab">
         <h1>Test</h1>
       </Tab>,
     );
@@ -21,10 +20,10 @@ describe('TabBar component', () => {
   it('should render a tab bar with first tab active', () => {
     const result = shallow(
       <TabBar>
-        <Tab id="1" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
-        <Tab id="2" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
       </TabBar>,
@@ -35,7 +34,7 @@ describe('TabBar component', () => {
   it('should render a tab bar with one tab inside', () => {
     const result = shallow(
       <TabBar>
-        <Tab id="1" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
       </TabBar>,
@@ -46,10 +45,10 @@ describe('TabBar component', () => {
   it('should render a tab bar with multiple tabs inside', () => {
     const result = shallow(
       <TabBar>
-        <Tab id="1" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
-        <Tab id="2" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
       </TabBar>,
@@ -59,15 +58,15 @@ describe('TabBar component', () => {
 
   it('should add new Tab', () => {
     const openNew = () => {
-      return <Tab id="newOne" text="new Tab"><h1>New Tab</h1></Tab>;
+      return <Tab text="new Tab"><h1>New Tab</h1></Tab>;
     };
 
     const result = shallow(
       <TabBar newTab={openNew}>
-        <Tab id="1" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
-        <Tab id="2" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test2</h1>
         </Tab>
       </TabBar>,
@@ -81,32 +80,34 @@ describe('TabBar component', () => {
     act(() => {
       result = mount(
         <TabBar reorderable>
-          <Tab id="movable" text="firstTab">
+          <Tab text="firstTab">
             <h1>Test</h1>
           </Tab>
-          <Tab id="reordered" text="secondTab">
+          <Tab text="secondTab">
             <h1>Test2</h1>
           </Tab>
         </TabBar>,
       );
     });
-    result.find('#movable').first().simulate('mouseDown', { clientX: 500 });
+    const first = result.find('li').first();
+    const second = result.find('li').last();
+    result.find('li').first().simulate('mouseDown', { clientX: 500 });
     result.find('.tab__bar').simulate('mouseMove', { clientX: 500 });
     const tabList = result.find('.tab__bar').props().children as React.ReactChildren;
-    const firstElelment = React.Children.toArray(tabList)[0] as any;
-    const secondElelment = React.Children.toArray(tabList)[1] as any;
-    expect(firstElelment.props.id).toEqual('reordered');
-    expect(secondElelment.props.id).toEqual('movable');
+    const firstElelment = result.find('li').first();
+    const secondElelment = result.find('li').last();
+    expect(firstElelment.props().id).toBe(second.props().id);
+    expect(secondElelment.props().id).toBe(first.props().id);
   });
 
   it('should close a Tab', () => {
 
     const result = mount(
       <TabBar closeable>
-        <Tab id="closed" text="firstTab">
+        <Tab text="firstTab">
           <h1>Test</h1>
         </Tab>
-        <Tab id="2" text="secondTab">
+        <Tab text="secondTab">
           <h1>Test2</h1>
         </Tab>
       </TabBar>,
