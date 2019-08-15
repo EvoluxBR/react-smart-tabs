@@ -36,8 +36,6 @@ const TabBar = (props: TabBarProps) => {
   const pos1 = useRef(0);
   const pos3 = useRef(0);
   const [dragged, setDrag] = useState(null);
-  const draggingFront = useRef(null);
-  const draggingBack = useRef(null);
   const [tabList, setTabList] = useState([]);
   const refList = useRef(
     React.Children.toArray(props.children).map(() => {
@@ -81,10 +79,10 @@ const TabBar = (props: TabBarProps) => {
   }
 
   function dragMouseDown(e: React.MouseEvent<HTMLElement>, tab: any) {
-    if (!props.reorderable) return;
     const elemn = getRef(tab).current;
     setDrag(tab);
     setActive(tab);
+    if (!props.reorderable) return;
       // get the mouse cursor position at startup:
     pos3.current =  e.clientX;
     elemn.style.left = `${elemn.getBoundingClientRect().left}px`;
