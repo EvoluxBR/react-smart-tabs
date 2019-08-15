@@ -7,8 +7,10 @@ import React, {
   ReactElement,
   createRef,
   ReactChildren,
-  ReactChild,
 } from 'react';
+// tslint:disable-next-line:import-name
+import ReactSVG from 'react-svg';
+import cancelSvg from './cancel.svg';
 // tslint:disable-next-line:import-name
 import Tab from './tab';
 import uuid from 'uuid';
@@ -27,6 +29,7 @@ export interface TabBarProps {
   onTabClick?: (tab: ReactElement) => void;
   // Function to be called when the tab List changes it receives the modified tabList
   onTabsChange?: (modifiedList: Tab[], tabList?: ReactChildren) => void;
+  closeIcon?: ReactElement;
 }
 
 // tslint:disable-next-line:variable-name
@@ -80,9 +83,9 @@ const TabBar = (props: TabBarProps) => {
 
   function dragMouseDown(e: React.MouseEvent<HTMLElement>, tab: any) {
     const elemn = getRef(tab).current;
-    setDrag(tab);
     setActive(tab);
     if (!props.reorderable) return;
+    setDrag(tab);
       // get the mouse cursor position at startup:
     pos3.current =  e.clientX;
     elemn.style.left = `${elemn.getBoundingClientRect().left}px`;
@@ -230,11 +233,15 @@ const TabBar = (props: TabBarProps) => {
                 onMouseDown={e => dragMouseDown(e, child)}
                 onMouseUp={closeDragElement}
               >
-                {child.tabComponent.props.text}
+                {child.tabComponent.props.tabHeader || child.tabComponent.props.text}
                 {props.closeable &&
                   <span
                     className="close"
-                    onClick={e => removeTab(child.id, e, child)}>x</span>
+                    onClick={e => removeTab(child.id, e, child)}>
+                      {
+                      props.closeIcon || <ReactSVG src={cancelSvg} className="close-icon"/>
+                      }
+                    </span>
                 }
               </li>
           );

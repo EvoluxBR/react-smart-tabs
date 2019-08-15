@@ -18,6 +18,10 @@ module.exports = {
         use: ['style-loader', 'postcss-loader'],
       },
       {
+        test: /\.svg?$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.tsx?$/,
         use: ['awesome-typescript-loader'],
       },
