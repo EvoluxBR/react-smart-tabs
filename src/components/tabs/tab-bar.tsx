@@ -97,7 +97,7 @@ const TabBar = (props: TabBarProps) => {
       nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
     } else if (previousElement) {
       previousElement.style.marginRight = `${elemn.getBoundingClientRect().width - 2}px`;
-    } else if (nextElement) {
+    } else {
       nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
     }
   }
@@ -122,7 +122,8 @@ const TabBar = (props: TabBarProps) => {
       nextElement.className = 'animated';
       arrayMove(tabList, tabList.indexOf(dragged), tabList.indexOf(dragged) + 1);
       setTabList([...tabList]);
-    } else if (previousElement && previousElement.getBoundingClientRect().right - 80 > position) {
+    }
+    if (previousElement && previousElement.getBoundingClientRect().right - 80 > position) {
       if (nextElement) {
         nextElement.style.marginRight = '-1px';
         nextElement.style.marginLeft = '0';
@@ -206,9 +207,6 @@ const TabBar = (props: TabBarProps) => {
       return true;
     }
     if (!currentTab && tabId === '' && !active) {
-      if (!props.children.length) {
-        return true;
-      }
       if (React.Children.toArray(props.children)[0].key === child.tabComponent.key) {
         return true;
       }
@@ -239,7 +237,8 @@ const TabBar = (props: TabBarProps) => {
                     className="close"
                     onClick={e => removeTab(child.id, e, child)}>
                       {
-                      props.closeIcon || <ReactSVG src={cancelSvg} className="close-icon"/>
+                      props.closeIcon ||
+                      <ReactSVG src={(cancelSvg.toString())} className="close-icon"/>
                       }
                     </span>
                 }
