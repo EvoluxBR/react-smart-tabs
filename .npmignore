@@ -12,3 +12,5 @@ test-shim.js
 tsconfig.json
 tslint.json
 webpack.config.js
+index.html
+.rpt2_cache/
