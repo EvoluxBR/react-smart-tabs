@@ -1,15 +1,14 @@
-// tslint:disable-next-line:import-name
-import React from 'react';
+import React, { ReactElement } from 'react';
 import uuid from 'uuid';
 
 export interface TabProps {
   resourceData?: object;
   children: any;
-  text: string;
   active?: boolean;
+  tabHeader?: ReactElement;
+  text?: string;
 }
 
-// tslint:disable-next-line:variable-name
 const Tab = (props: TabProps) => {
   return (
     <div

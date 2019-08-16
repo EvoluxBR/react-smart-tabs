@@ -1,15 +1,15 @@
-// tslint:disable-next-line:import-name
-import React, {
-  Fragment,
-  useState,
-  useRef,
-  useEffect,
-  ReactElement,
-  createRef,
-  ReactChildren,
-  ReactChild,
-} from 'react';
-// tslint:disable-next-line:import-name
+import {
+        default as React,
+        Fragment,
+        useState,
+        useRef,
+        useEffect,
+        ReactElement,
+        createRef,
+        ReactChildren,
+       } from 'react';
+import ReactSVG from 'react-svg';
+import cancelSvg from './cancel.svg';
 import Tab from './tab';
 import uuid from 'uuid';
 import { arrayMove } from './utils';
@@ -27,9 +27,9 @@ export interface TabBarProps {
   onTabClick?: (tab: ReactElement) => void;
   // Function to be called when the tab List changes it receives the modified tabList
   onTabsChange?: (modifiedList: Tab[], tabList?: ReactChildren) => void;
+  closeIcon?: ReactElement;
 }
 
-// tslint:disable-next-line:variable-name
 const TabBar = (props: TabBarProps) => {
   const [tabId, setTabId] = useState('');
   const tabBar = useRef(null);
@@ -80,9 +80,9 @@ const TabBar = (props: TabBarProps) => {
 
   function dragMouseDown(e: React.MouseEvent<HTMLElement>, tab: any) {
     const elemn = getRef(tab).current;
-    setDrag(tab);
     setActive(tab);
     if (!props.reorderable) return;
+    setDrag(tab);
       // get the mouse cursor position at startup:
     pos3.current =  e.clientX;
     elemn.style.left = `${elemn.getBoundingClientRect().left}px`;
@@ -94,7 +94,7 @@ const TabBar = (props: TabBarProps) => {
       nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
     } else if (previousElement) {
       previousElement.style.marginRight = `${elemn.getBoundingClientRect().width - 2}px`;
-    } else if (nextElement) {
+    } else {
       nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
     }
   }
@@ -119,7 +119,8 @@ const TabBar = (props: TabBarProps) => {
       nextElement.className = 'animated';
       arrayMove(tabList, tabList.indexOf(dragged), tabList.indexOf(dragged) + 1);
       setTabList([...tabList]);
-    } else if (previousElement && previousElement.getBoundingClientRect().right - 80 > position) {
+    }
+    if (previousElement && previousElement.getBoundingClientRect().right - 80 > position) {
       if (nextElement) {
         nextElement.style.marginRight = '-1px';
         nextElement.style.marginLeft = '0';
@@ -203,9 +204,6 @@ const TabBar = (props: TabBarProps) => {
       return true;
     }
     if (!currentTab && tabId === '' && !active) {
-      if (!props.children.length) {
-        return true;
-      }
       if (React.Children.toArray(props.children)[0].key === child.tabComponent.key) {
         return true;
       }
@@ -230,11 +228,18 @@ const TabBar = (props: TabBarProps) => {
                 onMouseDown={e => dragMouseDown(e, child)}
                 onMouseUp={closeDragElement}
               >
-                {child.tabComponent.props.text}
+                {child.tabComponent.props.tabHeader || child.tabComponent.props.text}
                 {props.closeable &&
                   <span
                     className="close"
-                    onClick={e => removeTab(child.id, e, child)}>x</span>
+                    onClick={e => removeTab(child.id, e, child)}>
+                      {props.closeIcon || (
+                            <ReactSVG
+                              className="close-icon"
+                              src={(cancelSvg.toString())}
+                            />
+                      )}
+                    </span>
                 }
               </li>
           );
