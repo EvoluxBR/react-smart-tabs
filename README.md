@@ -1,7 +1,7 @@
 ![](./readme/react-smart-tabs-logo.png "react-smart-tabs")
 > A simple to use tab system built with react.
 
-[![NPM Version][npm-image]][npm-url] [![Downloads Stats][npm-downloads]][npm-url]
+[![NPM Version][npm-image]][npm-url] [![Downloads Stats][npm-downloads]][npm-url] [![Codecov Coverage][code-cov-image]][code-cov-repo]
 
 ## Description
 [react-smart-tabs](https://github.com/EvoluxBR/react-smart-tabs/) is an intuitive tab system built with react, inspired by chrome's tab functionality.
@@ -268,5 +268,7 @@ Use these links to get the badges:
 -->
 [npm-image]: https://badge.fury.io/js/react-smart-tabs.svg
 [npm-url]: https://www.npmjs.com/package/react-smart-tabs
-[npm-downloads]: https://img.shields.io/npm/dt/react-smart-tabs?label=npm%20downloads&style=flat-square
+[npm-downloads]: https://img.shields.io/npm/dt/react-smart-tabs
 [wiki]: https://github.com/EvoluxBR/react-smart-tabs/wiki
+[code-cov-image]: https://img.shields.io/codecov/c/github/EvoluxBR/react-smart-tabs/master.svg
+[code-cov-repo]: https://codecov.io/gh/EvoluxBR/react-smart-tabs
