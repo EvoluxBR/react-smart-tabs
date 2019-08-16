@@ -9,6 +9,7 @@ export interface TabProps {
   text?: string;
   className?: string;
   classNameActive?: string;
+  closeable?: boolean;
 }
 
 const Tab = (props: TabProps) => {

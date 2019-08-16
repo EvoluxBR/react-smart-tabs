@@ -222,6 +222,9 @@ const TabBar = (props: TabBarProps) => {
         {tabList.map((child: any, i) => {
           const className = child.tabComponent.props.className;
           const activeClassName = child.tabComponent.props.classNameActive;
+          const closeableTab = child.tabComponent.props.closeable
+          const  { closeable } = props;
+          const shouldClose = closeableTab !== undefined ? (closeableTab && closeable) : closeable;
           return (
               <li
                 id={child.id}
@@ -232,7 +235,7 @@ const TabBar = (props: TabBarProps) => {
                 onMouseUp={closeDragElement}
               >
                 {child.tabComponent.props.tabHeader || child.tabComponent.props.text}
-                {props.closeable &&
+                { shouldClose &&
                   <span
                     className="close"
                     onClick={e => removeTab(child.id, e, child)}>

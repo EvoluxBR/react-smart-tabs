@@ -17,7 +17,7 @@ const TabInterface = () => {
       newTab={createNew}
       className="small-tab"
     >
-      <Tab text="first tab" classNameActive="red-header" className="the-rest">
+      <Tab text="first tab" closeable={false}>
         <form className="frm">
           <h1>Form 1</h1>
           <p>Name</p>
@@ -31,7 +31,7 @@ const TabInterface = () => {
         </form>
       </Tab>
 
-      <Tab text="second tab" className="the-rest">
+      <Tab text="second tab" >
         <form className="frm">
           <h1>Form 2</h1>
           <p>Name</p>
