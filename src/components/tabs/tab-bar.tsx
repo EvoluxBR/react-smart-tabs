@@ -28,6 +28,7 @@ export interface TabBarProps {
   // Function to be called when the tab List changes it receives the modified tabList
   onTabsChange?: (modifiedList: Tab[], tabList?: ReactChildren) => void;
   closeIcon?: ReactElement;
+  className?: string;
 }
 
 const TabBar = (props: TabBarProps) => {
@@ -212,19 +213,21 @@ const TabBar = (props: TabBarProps) => {
   };
   return (
     <Fragment>
-      <div className="bar__wrapper">
+      <div className={`bar__wrapper ${props.className}`}>
       <ul className="tab__bar"
         onMouseMove={elementDrag}
         onMouseLeave={closeDragElement}
         ref={tabBar}
       >
         {tabList.map((child: any, i) => {
+          const className = child.tabComponent.props.className;
+          const activeClassName = child.tabComponent.props.classNameActive;
           return (
               <li
                 id={child.id}
                 key={child.id}
                 ref={refList.current[i]}
-                className={checkActive(child) ? 'active reposition' : ''}
+                className={checkActive(child) ? `${activeClassName || 'active'} reposition` : className}
                 onMouseDown={e => dragMouseDown(e, child)}
                 onMouseUp={closeDragElement}
               >
