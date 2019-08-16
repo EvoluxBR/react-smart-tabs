@@ -8,6 +8,10 @@
     "dev": "webpack-dev-server --content-base ./dist --host 0.0.0.0  --hot --inline --colors --port 3000 --open",
     "build": "rollup -c"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/EvoluxBR/react-smart-tabs"
+  },
   "keywords": [
     "React",
     "Tabs",
