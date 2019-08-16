@@ -7,6 +7,8 @@ export interface TabProps {
   active?: boolean;
   tabHeader?: ReactElement;
   text?: string;
+  className?: string;
+  classNameActive?: string;
 }
 
 const Tab = (props: TabProps) => {
