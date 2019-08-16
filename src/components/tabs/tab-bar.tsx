@@ -9,7 +9,7 @@ import {
         ReactChildren,
        } from 'react';
 import ReactSVG from 'react-svg';
-import * as cancelSvg from './cancel.svg';
+import cancelSvg from './cancel.svg';
 import Tab from './tab';
 import uuid from 'uuid';
 import { arrayMove } from './utils';
