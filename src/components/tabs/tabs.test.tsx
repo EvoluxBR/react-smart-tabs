@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { shallow, mount, ReactWrapper } from 'enzyme';
-import { act, Simulate } from 'react-dom/test-utils'; // tslint:disable-next-line:import-name
 import Tab from './tab';
-// tslint:disable-next-line:import-name
 import TabBar from './tab-bar';
 
 describe('tab subcomponent', () => {
@@ -92,8 +90,7 @@ describe('TabBar component', () => {
   });
 
   it('should change the position of a tab fowards', () => {
-    let result: ReactWrapper;
-    result = mount(
+    const result = mount(
         <TabBar reorderable>
           <Tab text="firstTab">
             <h1>Test</h1>
@@ -126,11 +123,10 @@ describe('TabBar component', () => {
       </TabBar>,
     );
     result.find('.close').first().simulate('click');
-    expect(result.find('#closed').exists()).toBeFalsy;
+    expect(result.find('#closed').exists()).toBeFalsy();
   });
 
   it('should close the active second tab', () => {
-
     const result = mount(
       <TabBar closeable>
         <Tab text="firstTab">
@@ -142,7 +138,7 @@ describe('TabBar component', () => {
       </TabBar>,
     );
     result.find('.close').last().simulate('click');
-    expect(result.find('li').last().exists()).toBeFalsy;
+    expect(result.find('li').at(1).exists()).toBeFalsy();
   });
 
   it('should render 2 tabs with random ids', () => {
@@ -162,8 +158,7 @@ describe('TabBar component', () => {
   });
 
   it('should change the position of a tab backwards', () => {
-    let result: ReactWrapper;
-    result = mount(
+    const result = mount(
         <TabBar reorderable>
           <Tab text="firstTabw">
             <h1>Test1</h1>
@@ -184,8 +179,7 @@ describe('TabBar component', () => {
   });
 
   it('should change the position of a tab backwards with three elements', () => {
-    let result: ReactWrapper;
-    result = mount(
+    const result = mount(
         <TabBar reorderable>
           <Tab text="firstTab">
             <h1>Test1</h1>
@@ -210,8 +204,7 @@ describe('TabBar component', () => {
   });
 
   it('should change the position of a tab foward with three elements', () => {
-    let result: ReactWrapper;
-    result = mount(
+    const result = mount(
         <TabBar reorderable>
           <Tab text="firstTab">
             <h1>Test1</h1>

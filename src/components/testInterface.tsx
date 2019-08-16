@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import Tab from './tabs/tab';
 import TabBar from './tabs/tab-bar';
-import uuid from 'uuid';
 
 const TabInterface = () => {
   const [number, setNumber] = useState(0);
@@ -30,6 +29,7 @@ const TabInterface = () => {
           <input/>
         </form>
       </Tab>
+
       <Tab text="second tab" >
         <form className="frm">
           <h1>Form 2</h1>

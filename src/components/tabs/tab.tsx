@@ -1,4 +1,3 @@
-// tslint:disable-next-line:import-name
 import React, { ReactElement } from 'react';
 import uuid from 'uuid';
 
@@ -10,7 +9,6 @@ export interface TabProps {
   text?: string;
 }
 
-// tslint:disable-next-line:variable-name
 const Tab = (props: TabProps) => {
   return (
     <div

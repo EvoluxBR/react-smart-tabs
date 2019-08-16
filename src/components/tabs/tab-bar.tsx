@@ -1,17 +1,15 @@
-// tslint:disable-next-line:import-name
-import React, {
-  Fragment,
-  useState,
-  useRef,
-  useEffect,
-  ReactElement,
-  createRef,
-  ReactChildren,
-} from 'react';
-// tslint:disable-next-line:import-name
+import {
+        default as React,
+        Fragment,
+        useState,
+        useRef,
+        useEffect,
+        ReactElement,
+        createRef,
+        ReactChildren,
+       } from 'react';
 import ReactSVG from 'react-svg';
-import cancelSvg from './cancel.svg';
-// tslint:disable-next-line:import-name
+import * as cancelSvg from './cancel.svg';
 import Tab from './tab';
 import uuid from 'uuid';
 import { arrayMove } from './utils';
@@ -32,7 +30,6 @@ export interface TabBarProps {
   closeIcon?: ReactElement;
 }
 
-// tslint:disable-next-line:variable-name
 const TabBar = (props: TabBarProps) => {
   const [tabId, setTabId] = useState('');
   const tabBar = useRef(null);
@@ -237,8 +234,9 @@ const TabBar = (props: TabBarProps) => {
                     className="close"
                     onClick={e => removeTab(child.id, e, child)}>
                       {
-                      props.closeIcon ||
-                      <ReactSVG src={(cancelSvg.toString())} className="close-icon"/>
+                      props.closeIcon || (
+                            <ReactSVG src={(cancelSvg.toString())} className="close-icon"/>
+                      )
                       }
                     </span>
                 }
