@@ -1,10 +1,11 @@
 import typescript from 'rollup-plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import {terser} from "rollup-plugin-terser";
+import svg from 'rollup-plugin-svg'
 
 export default {
   input: './src/components/index.tsx',
-  external: ['react', 'uuid'],
+  external: ['react', 'uuid', 'react-svg'],
   output: {
     file: './dist/bundle.js',
     format: 'umd',
@@ -12,6 +13,7 @@ export default {
     globals: {
         react: "React",
         uuid: "uuid",
+        "react-svg": "ReactSVG",
     }
   },
   plugins: [
@@ -20,5 +22,6 @@ export default {
      }),
     scss({output: './dist/bundle.css',}),
     terser(),
+    svg(),
   ]
 }
