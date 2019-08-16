@@ -233,11 +233,12 @@ const TabBar = (props: TabBarProps) => {
                   <span
                     className="close"
                     onClick={e => removeTab(child.id, e, child)}>
-                      {
-                      props.closeIcon || (
-                            <ReactSVG src={(cancelSvg.toString())} className="close-icon"/>
-                      )
-                      }
+                      {props.closeIcon || (
+                            <ReactSVG
+                              className="close-icon"
+                              src={(cancelSvg.toString())}
+                            />
+                      )}
                     </span>
                 }
               </li>
