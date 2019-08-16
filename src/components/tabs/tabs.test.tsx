@@ -7,7 +7,7 @@ describe('tab subcomponent', () => {
   it('should render a Tab', () => {
     const result = shallow(
       <Tab text="firstTab">
-        <h1>Test</h1>
+        <h3>Test</h3>
       </Tab>,
     );
     expect(result).toMatchSnapshot();
@@ -19,10 +19,10 @@ describe('TabBar component', () => {
     const result = shallow(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
       </TabBar>,
     );
@@ -33,10 +33,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab" active>
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
       </TabBar>,
     );
@@ -49,7 +49,7 @@ describe('TabBar component', () => {
     const result = shallow(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
       </TabBar>,
     );
@@ -60,10 +60,10 @@ describe('TabBar component', () => {
     const result = shallow(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
       </TabBar>,
     );
@@ -72,16 +72,16 @@ describe('TabBar component', () => {
 
   it('should add new Tab', () => {
     const openNew = () => {
-      return <Tab text="new Tab"><h1>New Tab</h1></Tab>;
+      return <Tab text="new Tab"><h3>New Tab</h3></Tab>;
     };
 
     const result = shallow(
       <TabBar newTab={openNew}>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab">
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
@@ -93,10 +93,10 @@ describe('TabBar component', () => {
     const result = mount(
         <TabBar reorderable>
           <Tab text="firstTab">
-            <h1>Test</h1>
+            <h3>Test</h3>
           </Tab>
           <Tab text="secondTab">
-            <h1>Test2</h1>
+            <h3>Test2</h3>
           </Tab>
         </TabBar>,
     );
@@ -115,10 +115,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar closeable>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="secondTab">
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
@@ -130,10 +130,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar closeable>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="secondTab" active>
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
@@ -145,10 +145,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
       </TabBar>,
     );
@@ -161,10 +161,10 @@ describe('TabBar component', () => {
     const result = mount(
         <TabBar reorderable>
           <Tab text="firstTabw">
-            <h1>Test1</h1>
+            <h3>Test1</h3>
           </Tab>
           <Tab text="secondTabw">
-            <h1>Test3</h1>
+            <h3>Test3</h3>
           </Tab>
         </TabBar>,
       );
@@ -182,13 +182,13 @@ describe('TabBar component', () => {
     const result = mount(
         <TabBar reorderable>
           <Tab text="firstTab">
-            <h1>Test1</h1>
+            <h3>Test1</h3>
           </Tab>
           <Tab text="secondTab">
-            <h1>Test2</h1>
+            <h3>Test2</h3>
           </Tab>
           <Tab text="thirdTab">
-            <h1>Test3</h1>
+            <h3>Test3</h3>
           </Tab>
         </TabBar>,
       );
@@ -207,13 +207,13 @@ describe('TabBar component', () => {
     const result = mount(
         <TabBar reorderable>
           <Tab text="firstTab">
-            <h1>Test1</h1>
+            <h3>Test1</h3>
           </Tab>
           <Tab text="secondTab">
-            <h1>Test2</h1>
+            <h3>Test2</h3>
           </Tab>
           <Tab text="thirdTab">
-            <h1>Test3</h1>
+            <h3>Test3</h3>
           </Tab>
         </TabBar>,
       );
@@ -232,10 +232,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab">
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
@@ -250,10 +250,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="firstTab">
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
@@ -272,10 +272,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar closeable onTabsChange={changed}>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="secondTab active">
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
@@ -288,10 +288,10 @@ describe('TabBar component', () => {
     const result = mount(
       <TabBar closeable onTabClick={click}>
         <Tab text="firstTab">
-          <h1>Test</h1>
+          <h3>Test</h3>
         </Tab>
         <Tab text="secondTab active">
-          <h1>Test2</h1>
+          <h3>Test2</h3>
         </Tab>
       </TabBar>,
     );
