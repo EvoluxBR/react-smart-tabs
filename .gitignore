@@ -6,6 +6,7 @@ node_modules/
 dist/
 coverage/
 yarn.lock
+.rpt2_cache/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

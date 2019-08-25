@@ -1,8 +1,9 @@
 {
   "name": "react-smart-tabs",
-  "version": "0.1.0",
+  "version": "0.2.5-alpha",
   "description": "A tab component with drag and drop functionality, add and close",
   "main": "dist/bundle.js",
+  "types": "dist/components/index.d.ts",
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server --content-base ./dist --host 0.0.0.0  --hot --inline --colors --port 3000 --open",
@@ -59,6 +60,7 @@
     "react-dom": "^16.9.0",
     "react-svg": "^10.0.17",
     "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "^0.22.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "tslint": "^5.18.0",

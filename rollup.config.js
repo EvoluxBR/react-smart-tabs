@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import {terser} from "rollup-plugin-terser";
 import svg from 'rollup-plugin-svg'
