@@ -13,7 +13,13 @@ const TabInterface = () => {
     );
   };
   return (
-    <TabBar closeable={true} reorderable={true} newTab={createNew} className="small-tab">
+    <TabBar
+      closeable={true}
+      reorderable={true}
+      newTab={createNew}
+      className="small-tab"
+      hiddenPanel
+    >
       <Tab text="first tab" classNameActive="red-header" className="the-rest">
         <form className="frm">
           <h1>Form 1</h1>

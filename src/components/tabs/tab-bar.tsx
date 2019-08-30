@@ -29,6 +29,7 @@ export interface ITabBarProps {
   onTabsChange?: (modifiedList: ITab[], tabList?: ReactChildren) => void;
   closeIcon?: ReactElement;
   className?: string;
+  hiddenPanel?: boolean;
 }
 
 const TabBar = (props: ITabBarProps) => {
@@ -245,17 +246,18 @@ const TabBar = (props: ITabBarProps) => {
           </span>
         )}
       </div>
-      {tabList.map((child: any) => {
-        return (
-          <div
-            id={`${child.id}-panel`}
-            key={`${child.id}-panel`}
-            className={`tab-panel ${checkActive(child) ? 'active' : ''}`}
-          >
-            {child.tabComponent}
-          </div>
-        );
-      })}
+      {!props.hiddenPanel &&
+        tabList.map((child: any) => {
+          return (
+            <div
+              id={`${child.id}-panel`}
+              key={`${child.id}-panel`}
+              className={`tab-panel ${checkActive(child) ? 'active' : ''}`}
+            >
+              {child.tabComponent}
+            </div>
+          );
+        })}
     </Fragment>
   );
 };
