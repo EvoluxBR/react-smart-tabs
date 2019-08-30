@@ -11,7 +11,7 @@
     "lint:scss": "stylelint 'src/**/*.scss'",
     "lint:ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "lint": "npm run lint:format && npm run lint:ts && npm run lint:scss",
-    "build": "npm run lint:format && npm run lint:ts && rollup -c"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
