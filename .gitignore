@@ -1,12 +1,12 @@
 node_modules/
 *.tsbuildinfo
 .eslintcache
-.vscode/
 *.DS_Store
 dist/
 coverage/
 yarn.lock
 .rpt2_cache/
+.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

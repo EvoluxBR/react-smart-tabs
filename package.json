@@ -7,7 +7,11 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server --content-base ./dist --host 0.0.0.0  --hot --inline --colors --port 3000 --open",
-    "build": "rollup -c"
+    "lint:format": "prettier --check './src/**/*.tsx'",
+    "lint:scss": "stylelint 'src/**/*.scss'",
+    "lint:ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "lint": "npm run lint:format && npm run lint:ts && npm run lint:scss",
+    "build": "npm run lint:format && npm run lint:ts && rollup -c"
   },
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
     "postcss-preset-env": "^6.6.0",
+    "prettier": "1.18.2",
     "react-test-renderer": "^16.8.6",
     "rollup": "^1.17.0",
     "rollup-plugin-scss": "^1.0.1",
@@ -38,11 +43,17 @@
     "rollup-plugin-typescript": "^1.0.1",
     "source-map-loader": "^0.2.4",
     "stylelint": "^10.1.0",
+    "stylelint-config-prettier": "^5.2.0",
+    "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-recommended": "^2.2.0",
+    "stylelint-order": "^3.0.1",
+    "stylelint-prettier": "^1.1.1",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.4",
     "tslib": "^1.10.0",
     "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
     "typescript": "^3.5.3",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5",
