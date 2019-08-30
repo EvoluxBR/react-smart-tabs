@@ -4,6 +4,6 @@ module.exports = {
       stage: 0,
     },
     'postcss-nested': {},
-    'autoprefixer': {},
-  }
-}
+    autoprefixer: {},
+  },
+};

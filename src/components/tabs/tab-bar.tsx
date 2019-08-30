@@ -1,37 +1,37 @@
 import {
-        default as React,
-        Fragment,
-        useState,
-        useRef,
-        useEffect,
-        ReactElement,
-        createRef,
-        ReactChildren,
-       } from 'react';
+  createRef,
+  default as React,
+  Fragment,
+  ReactChildren,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import ReactSVG from 'react-svg';
+import uuid from 'uuid';
 import cancelSvg from './cancel.svg';
 import Tab from './tab';
-import uuid from 'uuid';
 import { arrayMove } from './utils';
 
-interface Tab {
+interface ITab {
   tabComponent: ReactElement;
   id: string;
 }
 
-export interface TabBarProps {
+export interface ITabBarProps {
   newTab?: () => ReactElement;
   reorderable?: boolean; // boolean to activate the reorderable behavior of the tabs
   children: any; // the tab passed as children
-  closeable?: boolean; // booblean to activate the closeable behavior on tabs
+  closeable?: boolean; // boolean to activate the closeable behavior on tabs
   onTabClick?: (tab: ReactElement) => void;
   // Function to be called when the tab List changes it receives the modified tabList
-  onTabsChange?: (modifiedList: Tab[], tabList?: ReactChildren) => void;
+  onTabsChange?: (modifiedList: ITab[], tabList?: ReactChildren) => void;
   closeIcon?: ReactElement;
   className?: string;
 }
 
-const TabBar = (props: TabBarProps) => {
+const TabBar = (props: ITabBarProps) => {
   const [tabId, setTabId] = useState('');
   const tabBar = useRef(null);
   const pos1 = useRef(0);
@@ -45,30 +45,24 @@ const TabBar = (props: TabBarProps) => {
   );
 
   // Add the tabs that comes from props to the tabList Array
-  useEffect(
-    () => {
-      // setTabList(React.Children.toArray(props.children));
-      const tabs = React.Children.toArray(props.children).map((tab) => {
-        return {
-          tabComponent: tab,
-          id: uuid(),
-        };
-      });
-      setTabList(tabs);
-    },
-    [],
-  );
+  useEffect(() => {
+    // setTabList(React.Children.toArray(props.children));
+    const tabs = React.Children.toArray(props.children).map(tab => {
+      return {
+        id: uuid(),
+        tabComponent: tab,
+      };
+    });
+    setTabList(tabs);
+  }, []);
 
   // if the onTabsChange prop is provided, send the modified tablist array...
   // as a parameter for the callback function
-  useEffect(
-    () => {
-      if (props.onTabsChange) {
-        props.onTabsChange(tabList, props.children);
-      }
-    },
-    [tabList],
-  );
+  useEffect(() => {
+    if (props.onTabsChange) {
+      props.onTabsChange(tabList, props.children);
+    }
+  }, [tabList]);
 
   function getRef(tab: any) {
     return refList.current.find(item => item.current.id === tab.id);
@@ -80,23 +74,23 @@ const TabBar = (props: TabBarProps) => {
   }
 
   function dragMouseDown(e: React.MouseEvent<HTMLElement>, tab: any) {
-    const elemn = getRef(tab).current;
+    const element = getRef(tab).current;
     setActive(tab);
     if (!props.reorderable) return;
     setDrag(tab);
-      // get the mouse cursor position at startup:
-    pos3.current =  e.clientX;
-    elemn.style.left = `${elemn.getBoundingClientRect().left}px`;
-    elemn.style.position = 'absolute';
-    elemn.style.width = `${elemn.offsetWidth}px`;
-    const nextElement = elemn.nextSibling as HTMLElement;
-    const previousElement = elemn.previousSibling as HTMLElement;
+    // get the mouse cursor position at startup:
+    pos3.current = e.clientX;
+    element.style.left = `${element.getBoundingClientRect().left}px`;
+    element.style.position = 'absolute';
+    element.style.width = `${element.offsetWidth}px`;
+    const nextElement = element.nextSibling as HTMLElement;
+    const previousElement = element.previousSibling as HTMLElement;
     if (nextElement && previousElement) {
-      nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
+      nextElement.style.marginLeft = `${element.getBoundingClientRect().width - 1}px`;
     } else if (previousElement) {
-      previousElement.style.marginRight = `${elemn.getBoundingClientRect().width - 2}px`;
+      previousElement.style.marginRight = `${element.getBoundingClientRect().width - 2}px`;
     } else {
-      nextElement.style.marginLeft = `${elemn.getBoundingClientRect().width - 1}px`;
+      nextElement.style.marginLeft = `${element.getBoundingClientRect().width - 1}px`;
     }
   }
 
@@ -107,7 +101,7 @@ const TabBar = (props: TabBarProps) => {
     const currentElement = getRef(dragged).current;
     const nextElement = currentElement.nextSibling as HTMLElement;
     const previousElement = currentElement.previousSibling as HTMLElement;
-    // all this -1 margins is for covering the aditional line after the tab
+    // all this -1 margins is for covering the additional line after the tab
     const placeholderMargin = currentElement.getBoundingClientRect().width - 1;
     currentElement.style.left = `${position}px`;
     if (nextElement && nextElement.getBoundingClientRect().left - 70 < position) {
@@ -134,12 +128,12 @@ const TabBar = (props: TabBarProps) => {
     }
   }
 
-  // Function called when the dragged element is relased
+  // Function called when the dragged element is released
   function closeDragElement(e: React.MouseEvent<HTMLElement>) {
     if (!dragged) return;
-    const elemn = getRef(dragged).current;
-    const nextElement = elemn.nextSibling as HTMLElement;
-    const previousElement = elemn.previousSibling as HTMLElement;
+    const element = getRef(dragged).current;
+    const nextElement = element.nextSibling as HTMLElement;
+    const previousElement = element.previousSibling as HTMLElement;
     if (nextElement) {
       nextElement.style.marginLeft = '0';
       nextElement.style.marginRight = '-1px';
@@ -148,14 +142,14 @@ const TabBar = (props: TabBarProps) => {
       previousElement.style.marginLeft = '0';
       previousElement.style.marginRight = '-1px';
     }
-    elemn.style.position = 'relative';
-    elemn.style.left = 'auto';
-    elemn.style.width = '145px';
+    element.style.position = 'relative';
+    element.style.left = 'auto';
+    element.style.width = '145px';
     tabBar.current.onmouseup = null;
     setDrag(null);
   }
 
-  // closes elements based on List Order
+  // Closes elements based on List Order
   const removeTab = (id: string, e: any, tab: any) => {
     e.stopPropagation();
     if (checkActive(tab) && tabList.length > 1) {
@@ -172,7 +166,7 @@ const TabBar = (props: TabBarProps) => {
     setTabList([...removed]);
   };
 
-  // set a tab as the active tab based on it's id
+  // Set a tab as the active tab based on it's id
   const setActive = (tab: any) => {
     setTabId(tab.id);
     if (props.onTabClick) {
@@ -180,24 +174,22 @@ const TabBar = (props: TabBarProps) => {
     }
   };
 
-  // function to add a new element on the list of tabs
+  // Function to add a new element on the list of tabs
   const addTab = () => {
     let tabComponent: ReactElement = props.newTab();
     refList.current.push(createRef<HTMLLIElement>());
-    tabComponent = <Tab text={tabComponent.props.text}>
-                     {tabComponent.props.children}
-                   </Tab>;
+    tabComponent = <Tab text={tabComponent.props.text}>{tabComponent.props.children}</Tab>;
     const newTab = { tabComponent, id: uuid() };
     setTabList([...tabList, newTab]);
     setActive(newTab);
   };
 
-  // function the check if the tab is the active one
+  // Function the check if the tab is the active one
   const checkActive = (child: any) => {
-    const active = React.Children.toArray(props.children).find((child: any) => {
-      return child.props.active;
+    const active = React.Children.toArray(props.children).find((childArray: any) => {
+      return childArray.props.active;
     });
-    const currentTab = (active && active.key === child.tabComponent.key) ? active : null;
+    const currentTab = active && active.key === child.tabComponent.key ? active : null;
     if (child.id === tabId) {
       return true;
     }
@@ -211,62 +203,61 @@ const TabBar = (props: TabBarProps) => {
     }
     return false;
   };
+
   return (
     <Fragment>
       <div className={`bar__wrapper ${props.className}`}>
-      <ul className="tab__bar"
-        onMouseMove={elementDrag}
-        onMouseLeave={closeDragElement}
-        ref={tabBar}
-      >
-        {tabList.map((child: any, i) => {
-          const className = child.tabComponent.props.className;
-          const activeClassName = child.tabComponent.props.classNameActive;
-          return (
+        <ul
+          className="tab__bar"
+          onMouseMove={elementDrag}
+          onMouseLeave={closeDragElement}
+          ref={tabBar}
+        >
+          {tabList.map((child: any, i) => {
+            const className = child.tabComponent.props.className;
+            const activeClassName = child.tabComponent.props.classNameActive;
+            return (
               <li
                 id={child.id}
                 key={child.id}
                 ref={refList.current[i]}
-                className={checkActive(child) ? `${activeClassName || 'active'} reposition` : className}
-                onMouseDown={e => dragMouseDown(e, child)}
+                className={
+                  checkActive(child) ? `${activeClassName || 'active'} reposition` : className
+                }
+                onMouseDown={event => dragMouseDown(event, child)}
                 onMouseUp={closeDragElement}
               >
                 {child.tabComponent.props.tabHeader || child.tabComponent.props.text}
-                {props.closeable &&
-                  <span
-                    className="close"
-                    onClick={e => removeTab(child.id, e, child)}>
-                      {props.closeIcon || (
-                            <ReactSVG
-                              className="close-icon"
-                              src={(cancelSvg.toString())}
-                            />
-                      )}
-                    </span>
-                }
+                {props.closeable && (
+                  <span className="close" onClick={event => removeTab(child.id, event, child)}>
+                    {props.closeIcon || (
+                      <ReactSVG className="close-icon" src={cancelSvg.toString()} />
+                    )}
+                  </span>
+                )}
               </li>
-          );
-        })
-        }
-
-      </ul>
-        {props.newTab &&
-          <span className="addButton" onClick={addTab}>+</span>
-        }
+            );
+          })}
+        </ul>
+        {props.newTab && (
+          <span className="addButton" onClick={addTab}>
+            +
+          </span>
+        )}
       </div>
-  {tabList.map((child: any) => {
-    return (
+      {tabList.map((child: any) => {
+        return (
           <div
             id={`${child.id}-panel`}
             key={`${child.id}-panel`}
-            className={`tab-panel ${checkActive(child) ? 'active' : '' }`}
+            className={`tab-panel ${checkActive(child) ? 'active' : ''}`}
           >
             {child.tabComponent}
           </div>
-    );
-  })
-  }
-    </Fragment >
+        );
+      })}
+    </Fragment>
   );
 };
+
 export default TabBar;

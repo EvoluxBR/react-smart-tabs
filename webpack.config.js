@@ -5,11 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.tsx',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
   output: {
     path: path.join('/dist'),
-    filename: 'bundle.min.js'
+    filename: 'bundle.min.js',
   },
   module: {
     rules: [
@@ -25,12 +25,11 @@ module.exports = {
         test: /\.tsx?$/,
         use: ['awesome-typescript-loader'],
       },
-      
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html'
-    })
-  ]
-}
+      template: './index.html',
+    }),
+  ],
+};
