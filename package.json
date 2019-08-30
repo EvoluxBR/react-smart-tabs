@@ -11,7 +11,9 @@
     "lint:scss": "stylelint 'src/**/*.scss'",
     "lint:ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "lint": "npm run lint:format && npm run lint:ts && npm run lint:scss",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "semantic-release": "semantic-release --no-ci",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -25,12 +27,15 @@
   "author": "Gusavo Freire Santos",
   "license": "MIT",
   "devDependencies": {
+    "@semantic-release/git": "^7.0.16",
     "@types/enzyme": "^3.10.1",
     "@types/jest": "^24.0.17",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "awesome-typescript-loader": "^5.2.1",
     "codecov": "^3.5.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
@@ -41,6 +46,7 @@
     "rollup-plugin-scss": "^1.0.1",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript": "^1.0.1",
+    "semantic-release": "^15.13.24",
     "source-map-loader": "^0.2.4",
     "stylelint": "^10.1.0",
     "stylelint-config-prettier": "^5.2.0",
@@ -77,5 +83,25 @@
     "tslint": "^5.18.0",
     "url-loader": "^2.1.0",
     "uuid": "^3.3.2"
+  },
+  "release": {
+    "repositoryUrl": "git@github.com:EvoluxBR/react-smart-tabs.git",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
