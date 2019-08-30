@@ -1,5 +1,7 @@
+// TODO: https://github.com/palantir/tslint/issues/3447#issuecomment-341802844
+// tslint:disable-next-line: no-implicit-dependencies
+import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import { shallow, mount, ReactWrapper } from 'enzyme';
 import Tab from './tab';
 import TabBar from './tab-bar';
 
@@ -72,7 +74,11 @@ describe('TabBar component', () => {
 
   it('should add new Tab', () => {
     const openNew = () => {
-      return <Tab text="new Tab"><h3>New Tab</h3></Tab>;
+      return (
+        <Tab text="new Tab">
+          <h3>New Tab</h3>
+        </Tab>
+      );
     };
 
     const result = shallow(
@@ -91,18 +97,21 @@ describe('TabBar component', () => {
 
   it('should change the position of a tab fowards', () => {
     const result = mount(
-        <TabBar reorderable>
-          <Tab text="firstTab">
-            <h3>Test</h3>
-          </Tab>
-          <Tab text="secondTab">
-            <h3>Test2</h3>
-          </Tab>
-        </TabBar>,
+      <TabBar reorderable>
+        <Tab text="firstTab">
+          <h3>Test</h3>
+        </Tab>
+        <Tab text="secondTab">
+          <h3>Test2</h3>
+        </Tab>
+      </TabBar>,
     );
     const first = result.find('li').first();
     const second = result.find('li').last();
-    result.find('li').first().simulate('mouseDown', { clientX: 500 });
+    result
+      .find('li')
+      .first()
+      .simulate('mouseDown', { clientX: 500 });
     result.find('.tab__bar').simulate('mouseMove', { clientX: 500 });
     const firstElelment = result.find('li').first();
     const secondElelment = result.find('li').last();
@@ -111,7 +120,6 @@ describe('TabBar component', () => {
   });
 
   it('should close a Tab', () => {
-
     const result = mount(
       <TabBar closeable>
         <Tab text="firstTab">
@@ -122,7 +130,10 @@ describe('TabBar component', () => {
         </Tab>
       </TabBar>,
     );
-    result.find('.close').first().simulate('click');
+    result
+      .find('.close')
+      .first()
+      .simulate('click');
     expect(result.find('#closed').exists()).toBeFalsy();
   });
 
@@ -137,8 +148,16 @@ describe('TabBar component', () => {
         </Tab>
       </TabBar>,
     );
-    result.find('.close').last().simulate('click');
-    expect(result.find('li').at(1).exists()).toBeFalsy();
+    result
+      .find('.close')
+      .last()
+      .simulate('click');
+    expect(
+      result
+        .find('li')
+        .at(1)
+        .exists(),
+    ).toBeFalsy();
   });
 
   it('should render 2 tabs with random ids', () => {
@@ -154,23 +173,26 @@ describe('TabBar component', () => {
     );
     const firstTab = result.find('li').first();
     const secondTab = result.find('li').last();
-    expect(firstTab.props().id !== secondTab.props().id).toBeTruthy;
+    expect(firstTab.props().id !== secondTab.props().id).toBeTruthy();
   });
 
   it('should change the position of a tab backwards', () => {
     const result = mount(
-        <TabBar reorderable>
-          <Tab text="firstTabw">
-            <h3>Test1</h3>
-          </Tab>
-          <Tab text="secondTabw">
-            <h3>Test3</h3>
-          </Tab>
-        </TabBar>,
-      );
+      <TabBar reorderable>
+        <Tab text="firstTabw">
+          <h3>Test1</h3>
+        </Tab>
+        <Tab text="secondTabw">
+          <h3>Test3</h3>
+        </Tab>
+      </TabBar>,
+    );
     const first = result.find('li').first();
     const second = result.find('li').last();
-    result.find('li').last().simulate('mouseDown', { clientX: 0 });
+    result
+      .find('li')
+      .last()
+      .simulate('mouseDown', { clientX: 0 });
     result.find('.tab__bar').simulate('mouseMove', { clientX: -200 });
     const firstElelment = result.find('li').first();
     const secondElelment = result.find('li').last();
@@ -180,18 +202,18 @@ describe('TabBar component', () => {
 
   it('should change the position of a tab backwards with three elements', () => {
     const result = mount(
-        <TabBar reorderable>
-          <Tab text="firstTab">
-            <h3>Test1</h3>
-          </Tab>
-          <Tab text="secondTab">
-            <h3>Test2</h3>
-          </Tab>
-          <Tab text="thirdTab">
-            <h3>Test3</h3>
-          </Tab>
-        </TabBar>,
-      );
+      <TabBar reorderable>
+        <Tab text="firstTab">
+          <h3>Test1</h3>
+        </Tab>
+        <Tab text="secondTab">
+          <h3>Test2</h3>
+        </Tab>
+        <Tab text="thirdTab">
+          <h3>Test3</h3>
+        </Tab>
+      </TabBar>,
+    );
     const first = result.find('li').first();
     const second = result.find('li').at(1);
     second.simulate('mouseDown', { clientX: 0 });
@@ -205,18 +227,18 @@ describe('TabBar component', () => {
 
   it('should change the position of a tab foward with three elements', () => {
     const result = mount(
-        <TabBar reorderable>
-          <Tab text="firstTab">
-            <h3>Test1</h3>
-          </Tab>
-          <Tab text="secondTab">
-            <h3>Test2</h3>
-          </Tab>
-          <Tab text="thirdTab">
-            <h3>Test3</h3>
-          </Tab>
-        </TabBar>,
-      );
+      <TabBar reorderable>
+        <Tab text="firstTab">
+          <h3>Test1</h3>
+        </Tab>
+        <Tab text="secondTab">
+          <h3>Test2</h3>
+        </Tab>
+        <Tab text="thirdTab">
+          <h3>Test3</h3>
+        </Tab>
+      </TabBar>,
+    );
     const third = result.find('li').at(2);
     const second = result.find('li').at(1);
     second.simulate('mouseDown', { clientX: 0 });
@@ -279,7 +301,10 @@ describe('TabBar component', () => {
         </Tab>
       </TabBar>,
     );
-    result.find('.close').last().simulate('click');
+    result
+      .find('.close')
+      .last()
+      .simulate('click');
     expect(changed).toHaveBeenCalled();
   });
 
@@ -295,7 +320,10 @@ describe('TabBar component', () => {
         </Tab>
       </TabBar>,
     );
-    result.find('li').last().simulate('mouseDown');
+    result
+      .find('li')
+      .last()
+      .simulate('mouseDown');
     expect(click).toHaveBeenCalled();
   });
 });

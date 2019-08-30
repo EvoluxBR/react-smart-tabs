@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import uuid from 'uuid';
 
-export interface TabProps {
+export interface ITabProps {
   resourceData?: object;
   children: any;
   active?: boolean;
@@ -11,16 +11,11 @@ export interface TabProps {
   classNameActive?: string;
 }
 
-const Tab = (props: TabProps) => {
+const Tab = (props: ITabProps) => {
   return (
-    <div
-      className="tab-wrapper"
-      key={uuid()}
-    >
-      <div>
-        {props.children}
-      </div>
-    </div >
+    <div className="tab-wrapper" key={uuid()}>
+      <div>{props.children}</div>
+    </div>
   );
 };
 export default Tab;
