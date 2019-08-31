@@ -1,9 +1,7 @@
-// TODO: https://github.com/palantir/tslint/issues/3447#issuecomment-341802844
-// tslint:disable-next-line: no-implicit-dependencies
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import Tab from './tab';
-import TabBar from './tab-bar';
+import Tab from '../src/components/tabs/tab';
+import TabBar from '../src/components/tabs/tab-bar';
 
 describe('tab subcomponent', () => {
   it('should render a Tab', () => {
