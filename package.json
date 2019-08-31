@@ -7,9 +7,9 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server --content-base ./dist --host 0.0.0.0  --hot --inline --colors --port 3000 --open",
-    "lint:format": "prettier --check './src/**/*.tsx'",
+    "lint:format": "prettier --check '**/*.{ts,tsx,js,html}'",
     "lint:scss": "stylelint 'src/**/*.scss'",
-    "lint:ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "lint:ts": "tslint -c tslint.json 'src/**/*.{ts,tsx}' && tslint -c tests/tslint.json 'tests/**/*.{ts,tsx}'",
     "lint": "npm run lint:format && npm run lint:ts && npm run lint:scss",
     "build": "rollup -c",
     "semantic-release": "semantic-release --no-ci",
