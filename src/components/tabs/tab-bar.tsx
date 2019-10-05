@@ -248,10 +248,13 @@ const TabBar = (props: ITabBarProps) => {
                                 {props.closeable && (
                                     <span className="close" onClick={event => removeTab(child.id, event, child)}>
                                         {props.closeIcon || (
-                                            <ReactSVG className="close-icon" src={cancelSvg.toString()} />
+                                            <a href="#" title="Close" alt={'Close ' + (child.tabComponent.props.tabHeader || child.tabComponent.props.text)}>
+                                                <ReactSVG className="close-icon" src={cancelSvg.toString()} />
+                                            </a>
                                         )}
                                     </span>
-                                )}
+                                )
+                                }
 
                             </li>
                         );
@@ -263,7 +266,8 @@ const TabBar = (props: ITabBarProps) => {
                     </span>
                 )}
             </div>
-            {!props.hiddenPanel &&
+            {
+                !props.hiddenPanel &&
                 tabList.map((child: any) => {
                     return (
                         <div
@@ -274,8 +278,9 @@ const TabBar = (props: ITabBarProps) => {
                             {child.tabComponent}
                         </div>
                     );
-                })}
-        </Fragment>
+                })
+            }
+        </Fragment >
     );
 };
 
