@@ -245,6 +245,9 @@ import 'react-smart-tabs/dist/bundle.css';
 * 0.0.14
     * FIX: Fixed the NPM bundle so it's lighter.
 
+## How to run?
+* npm run dev
+
 
 ## Want to contribute?
 
