@@ -12,14 +12,15 @@ const TabInterface = () => {
             </Tab>
         );
     };
+    
     return (
         <TabBar
             closeable={true}
             reorderable={true}
             newTab={createNew}
-            hiddenPanel
+        // hiddenPanel
         >
-            <Tab text="first tab" >
+            <Tab text="first tab">
                 <form className="frm">
                     <h1>Form 1</h1>
                     <p>Name</p>
@@ -33,7 +34,7 @@ const TabInterface = () => {
                 </form>
             </Tab>
 
-            <Tab text="second tab" >
+            <Tab text="second tab">
                 <form className="frm">
                     <h1>Form 2</h1>
                     <p>Name</p>

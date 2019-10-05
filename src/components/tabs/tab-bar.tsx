@@ -239,6 +239,7 @@ const TabBar = (props: ITabBarProps) => {
                                 onMouseUp={closeDragElement}
                             >
                                 <a href="#"
+                                    alt='Select tab'
                                     className="no-link-style"
                                     onKeyDown={event => pressEnter(event, child)}
                                 >
@@ -258,8 +259,8 @@ const TabBar = (props: ITabBarProps) => {
                 </ul>
                 {props.newTab && (
                     <span className="addButton" onClick={addTab}>
-                        +
-          </span>
+                        <a href="#" title='New Tab' className="no-link-style">+</a>
+                    </span>
                 )}
             </div>
             {!props.hiddenPanel &&
