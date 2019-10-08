@@ -7,6 +7,7 @@
     transform: translateX(0%);
   }
 }
+
 @keyframes move-before {
   0% {
     transform: translateX(-8%);
@@ -83,6 +84,7 @@ body {
 
   li {
     position: relative;
+    user-select: contain;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,6 +100,10 @@ body {
     border-bottom-left-radius: -30%;
     cursor: pointer;
     transition: background 0.15s ease-in;
+
+    a {
+      text-transform: capitalize;
+    }
 
     &.active {
       z-index: 99;
@@ -138,7 +144,7 @@ body {
     &:hover {
       background: #292929;
 
-      & > .close {
+      &>.close {
         &:before {
           background: transparent;
         }
@@ -179,4 +185,9 @@ body {
   overflow: hidden;
   background: #222222;
   border-bottom: 3px solid #383838;
+}
+
+.no-link-style {
+  text-decoration: none;
+  color: inherit;
 }
