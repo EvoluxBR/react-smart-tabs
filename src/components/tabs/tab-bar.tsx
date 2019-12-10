@@ -151,10 +151,14 @@ const TabBar = (props: ITabBarProps) => {
   }
 
   // Closes elements based on List Order
-  const onRemoveTab = (id: string, event: React.MouseEvent<HTMLElement>, tab: ITab): void => {
+  const onRemoveTab = (
+    id: string,
+    event: React.MouseEvent<HTMLElement>,
+    currentTab: ITab,
+  ): void => {
     event.stopPropagation();
-    const tabIndex = tabList.indexOf(tab);
-    if (isActive(tab) && tabList.length > 1) {
+    const tabIndex = tabList.indexOf(currentTab);
+    if (isActive(currentTab) && tabList.length > 1) {
       const afterTab = tabList[tabIndex + 1];
       const beforeTab = tabList[tabIndex - 1];
       if (afterTab) {
@@ -163,9 +167,8 @@ const TabBar = (props: ITabBarProps) => {
         setActive(beforeTab);
       }
     }
-    const removed = tabList;
-    removed.splice(tabList.indexOf(tab), 1);
-    setTabList([...removed]);
+
+    setTabList(tabList.filter(tab => tab.id !== currentTab.id));
   };
 
   // Set a tab as the active tab based on it's id
