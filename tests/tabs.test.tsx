@@ -79,7 +79,7 @@ describe('TabBar component', () => {
       );
     };
 
-    const result = shallow(
+    const result = mount(
       <TabBar newTab={openNew}>
         <Tab text="firstTab">
           <h3>Test</h3>

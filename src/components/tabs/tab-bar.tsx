@@ -1,23 +1,11 @@
-import {
-  createRef,
-  default as React,
-  Fragment,
-  ReactChildren,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import ReactSVG from 'react-svg';
+import { createRef, default as React, ReactElement, useEffect, useRef, useState } from 'react';
 import uuid from 'uuid';
-import cancelSvg from './cancel.svg';
-import Tab, { ITabProps } from './tab';
+import { ITab } from '../types';
+import Tab from './tab';
+import TabBarAddButton from './tab-bar-add-button';
+import TabBarItems from './tab-bar-items';
+import TabBarPanels from './tab-bar-panels';
 import { arrayMove } from './utils';
-
-interface ITab {
-  tabComponent: ReactElement<ITabProps>;
-  id: string;
-}
 
 export interface ITabBarProps {
   newTab?: () => ReactElement;
@@ -96,7 +84,7 @@ const TabBar = (props: ITabBarProps) => {
   }
 
   // function called when the tab is dragged
-  function elementDrag(event: React.MouseEvent<HTMLElement>): void {
+  function onElementDrag(event: React.MouseEvent<HTMLElement>): void {
     if (!draggedTab) return;
     const currentPosition = exactCurrentPosition(event);
     const currentElement = getRef(draggedTab).current;
@@ -210,56 +198,24 @@ const TabBar = (props: ITabBarProps) => {
   };
 
   return (
-    <Fragment>
+    <>
       <div className={`bar__wrapper ${props.className}`}>
-        <ul
-          className="tab__bar"
-          onMouseMove={elementDrag}
-          onMouseLeave={onCloseDragElement}
-          ref={tabBarRef}
-        >
-          {tabList.map((tab: ITab, index) => {
-            const { className, classNameActive } = tab.tabComponent.props;
-            return (
-              <li
-                id={tab.id}
-                key={tab.id}
-                ref={refList.current[index]}
-                className={isActive(tab) ? `${classNameActive || 'active'} reposition` : className}
-                onMouseDown={event => onDragMouseDown(event, tab)}
-                onMouseUp={onCloseDragElement}
-              >
-                {tab.tabComponent.props.tabHeader || tab.tabComponent.props.text}
-                {props.closeable && (
-                  <span className="close" onClick={event => onRemoveTab(tab.id, event, tab)}>
-                    {props.closeIcon || (
-                      <ReactSVG className="close-icon" src={cancelSvg.toString()} />
-                    )}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-        {props.newTab && (
-          <span className="addButton" onClick={onAddTab}>
-            +
-          </span>
-        )}
+        <TabBarItems
+          tabList={tabList}
+          refList={refList}
+          refTabBar={tabBarRef}
+          isActive={isActive}
+          onElementDrag={onElementDrag}
+          onCloseDragElement={onCloseDragElement}
+          onRemoveTab={onRemoveTab}
+          onDragMouseDown={onDragMouseDown}
+          closeable={props.closeable}
+          closeIcon={props.closeIcon}
+        />
+        <TabBarAddButton newTab={props.newTab} onAddTab={onAddTab} />
       </div>
-      {!props.hiddenPanel &&
-        tabList.map((tab: ITab) => {
-          return (
-            <div
-              id={`${tab.id}-panel`}
-              key={`${tab.id}-panel`}
-              className={`tab-panel ${isActive(tab) ? 'active' : ''}`}
-            >
-              {tab.tabComponent}
-            </div>
-          );
-        })}
-    </Fragment>
+      <TabBarPanels hiddenPanel={props.hiddenPanel} tabList={tabList} isActive={isActive} />
+    </>
   );
 };
 
