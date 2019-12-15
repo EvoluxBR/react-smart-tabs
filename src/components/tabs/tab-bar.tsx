@@ -8,13 +8,14 @@ import {
   useState,
 } from 'react';
 import uuid from 'uuid';
+import isTabActiveFactor from '../../utils/is-tab-active-factor';
+import getRef from '../../utils/get-ref';
 import { ITab } from '../types';
 import Tab from './tab';
 import TabBarAddButton from './tab-bar-add-button';
 import TabBarItems from './tab-bar-items';
 import TabBarPanels from './tab-bar-panels';
 import { arrayMove } from './utils';
-import getRef from '../../utils/get-ref';
 
 export interface ITabBarProps {
   newTab?: () => ReactElement;
@@ -42,6 +43,8 @@ const TabBar = (props: ITabBarProps) => {
       return createRef<HTMLLIElement>();
     }),
   );
+
+  const isActiveTab = isTabActiveFactor(childrenAsArray, tabId);
 
   // Add the tabs that comes from props to the tabList Array
   useEffect(() => {
@@ -183,29 +186,6 @@ const TabBar = (props: ITabBarProps) => {
     const newTab: ITab = { tabComponent, id: uuid() };
     setTabList([...tabList, newTab]);
     setActive(newTab);
-  }
-
-  // Function the check if the tab is the active one
-  function isActiveTab(tab: ITab): boolean {
-    if (tab.id === tabId) {
-      return true;
-    }
-
-    const activeTab = childrenAsArray.find((childArray: ReactElement) => {
-      return childArray.props.active;
-    });
-    const isCurrentTab = activeTab && activeTab.key === tab.tabComponent.key;
-
-    if (tabId === '' && isCurrentTab) {
-      return true;
-    }
-
-    if (!isCurrentTab && tabId === '' && !activeTab) {
-      if (childrenAsArray[0].key === tab.tabComponent.key) {
-        return true;
-      }
-    }
-    return false;
   }
 
   return (
