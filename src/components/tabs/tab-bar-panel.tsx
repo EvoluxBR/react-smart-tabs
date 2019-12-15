@@ -3,11 +3,11 @@ import { ITab } from '../types';
 
 export interface ITabBarPanel {
   tab: ITab;
-  isActive: (tab: ITab) => boolean;
+  isActiveTab: (tab: ITab) => boolean;
 }
 
-const TabBarPanel = ({ tab, isActive }: ITabBarPanel) => (
-  <div id={`${tab.id}-panel`} className={`tab-panel ${isActive(tab) ? 'active' : ''}`}>
+const TabBarPanel = ({ tab, isActiveTab }: ITabBarPanel) => (
+  <div id={`${tab.id}-panel`} className={`tab-panel ${isActiveTab(tab) ? 'active' : ''}`}>
     {tab.tabComponent}
   </div>
 );
