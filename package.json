@@ -46,7 +46,7 @@
     "rollup-plugin-scss": "^1.0.1",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript": "^1.0.1",
-    "semantic-release": "^15.13.24",
+    "semantic-release": "^17.2.3",
     "source-map-loader": "^0.2.4",
     "stylelint": "^10.1.0",
     "stylelint-config-prettier": "^5.2.0",
