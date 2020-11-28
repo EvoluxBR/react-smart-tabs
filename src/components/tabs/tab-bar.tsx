@@ -1,5 +1,15 @@
-import { createRef, default as React, ReactElement, useEffect, useRef, useState } from 'react';
+import {
+  createRef,
+  default as React,
+  ReactElement,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import uuid from 'uuid';
+import isTabActiveFactor from '../../utils/is-tab-active-factor';
+import getRef from '../../utils/get-ref';
 import { ITab } from '../types';
 import Tab from './tab';
 import TabBarAddButton from './tab-bar-add-button';
@@ -21,18 +31,20 @@ export interface ITabBarProps {
 }
 
 const TabBar = (props: ITabBarProps) => {
-  const [tabId, setTabId] = useState<string | number>('');
-  const tabBarRef = useRef(null);
-  const beforeTabPosition = useRef(0);
-  const mousePosition = useRef(0);
   const [draggedTab, setDraggedTab] = useState<ITab | null>(null);
+  const [tabId, setTabId] = useState<string | number>('');
   const [tabList, setTabList] = useState<ITab[]>([]);
+  const mousePosition = useRef(0);
+  const tabBarRef = useRef(null);
   const childrenAsArray = React.Children.toArray(props.children);
+
   const refList = useRef(
     childrenAsArray.map(() => {
       return createRef<HTMLLIElement>();
     }),
   );
+
+  const isActiveTab = isTabActiveFactor(childrenAsArray, tabId);
 
   // Add the tabs that comes from props to the tabList Array
   useEffect(() => {
@@ -53,17 +65,19 @@ const TabBar = (props: ITabBarProps) => {
     }
   }, [tabList]);
 
-  function getRef(tab: ITab) {
-    return refList.current.find(item => item.current.id === tab.id);
-  }
-  function exactCurrentPosition(event: React.MouseEvent<HTMLElement>): number {
-    beforeTabPosition.current = mousePosition.current - event.clientX;
-    mousePosition.current = event.clientX;
-    return getRef(draggedTab).current.offsetLeft - beforeTabPosition.current;
+  /**
+   * This function gets the distance from tab dragged to TabBar
+   *
+   * @param {React.MouseEvent<HTMLElement>} event
+   * @returns {number}
+   */
+  function getHorizontalLocation(currentElement: HTMLLIElement, clientX: number): number {
+    const offsetBetweenMousePositionAndElement = mousePosition.current - clientX;
+    return currentElement.offsetLeft - offsetBetweenMousePositionAndElement;
   }
 
   function onDragMouseDown(event: React.MouseEvent<HTMLElement>, tab: ITab): void {
-    const element = getRef(tab).current;
+    const element = getRef(tab, refList).current;
     setActive(tab);
     if (!props.reorderable) return;
     setDraggedTab(tab);
@@ -83,15 +97,16 @@ const TabBar = (props: ITabBarProps) => {
     }
   }
 
-  // function called when the tab is dragged
-  function onElementDrag(event: React.MouseEvent<HTMLElement>): void {
+  function onTabBarMouseMove(event: React.MouseEvent<HTMLElement>): void {
     if (!draggedTab) return;
-    const currentPosition = exactCurrentPosition(event);
-    const currentElement = getRef(draggedTab).current;
+    // TODO: Create a function with this lines bellow
+    const currentElement = getRef(draggedTab, refList).current;
+    const currentPosition = getHorizontalLocation(currentElement, event.clientX);
     const nextElement = currentElement.nextSibling as HTMLElement;
     const previousElement = currentElement.previousSibling as HTMLElement;
     // all this -1 margins is for covering the additional line after the tab
     const placeholderMargin = currentElement.getBoundingClientRect().width - 1;
+    mousePosition.current = event.clientX;
     currentElement.style.left = `${currentPosition}px`;
     if (nextElement && nextElement.getBoundingClientRect().left - 70 < currentPosition) {
       if (previousElement) {
@@ -120,7 +135,7 @@ const TabBar = (props: ITabBarProps) => {
   // Function called when the dragged element is released
   function onCloseDragElement(event: React.MouseEvent<HTMLElement>): void {
     if (!draggedTab) return;
-    const element = getRef(draggedTab).current;
+    const element = getRef(draggedTab, refList).current;
     const nextElement = element.nextSibling as HTMLElement;
     const previousElement = element.previousSibling as HTMLElement;
     if (nextElement) {
@@ -139,14 +154,10 @@ const TabBar = (props: ITabBarProps) => {
   }
 
   // Closes elements based on List Order
-  const onRemoveTab = (
-    id: string,
-    event: React.MouseEvent<HTMLElement>,
-    currentTab: ITab,
-  ): void => {
+  function onRemoveTab(id: string, event: React.MouseEvent<HTMLElement>, currentTab: ITab): void {
     event.stopPropagation();
     const tabIndex = tabList.indexOf(currentTab);
-    if (isActive(currentTab) && tabList.length > 1) {
+    if (isActiveTab(currentTab) && tabList.length > 1) {
       const afterTab = tabList[tabIndex + 1];
       const beforeTab = tabList[tabIndex - 1];
       if (afterTab) {
@@ -157,45 +168,25 @@ const TabBar = (props: ITabBarProps) => {
     }
 
     setTabList(tabList.filter(tab => tab.id !== currentTab.id));
-  };
+  }
 
   // Set a tab as the active tab based on it's id
-  const setActive = (tab: ITab): void => {
+  function setActive(tab: ITab): void {
     setTabId(tab.id);
     if (props.onTabClick) {
       props.onTabClick(tab);
     }
-  };
+  }
 
   // Function to add a new element on the list of tabs
-  const onAddTab = (): void => {
+  function onAddTab(): void {
     let tabComponent: ReactElement = props.newTab();
     refList.current.push(createRef<HTMLLIElement>());
     tabComponent = <Tab text={tabComponent.props.text}>{tabComponent.props.children}</Tab>;
     const newTab: ITab = { tabComponent, id: uuid() };
     setTabList([...tabList, newTab]);
     setActive(newTab);
-  };
-
-  // Function the check if the tab is the active one
-  const isActive = (child: ITab): boolean => {
-    const active = childrenAsArray.find((childArray: ReactElement) => {
-      return childArray.props.active;
-    });
-    const currentTab = active && active.key === child.tabComponent.key ? active : null;
-    if (child.id === tabId) {
-      return true;
-    }
-    if (tabId === '' && currentTab) {
-      return true;
-    }
-    if (!currentTab && tabId === '' && !active) {
-      if (childrenAsArray[0].key === child.tabComponent.key) {
-        return true;
-      }
-    }
-    return false;
-  };
+  }
 
   return (
     <>
@@ -204,8 +195,8 @@ const TabBar = (props: ITabBarProps) => {
           tabList={tabList}
           refList={refList}
           refTabBar={tabBarRef}
-          isActive={isActive}
-          onElementDrag={onElementDrag}
+          isActiveTab={isActiveTab}
+          onTabBarMouseMove={onTabBarMouseMove}
           onCloseDragElement={onCloseDragElement}
           onRemoveTab={onRemoveTab}
           onDragMouseDown={onDragMouseDown}
@@ -214,7 +205,7 @@ const TabBar = (props: ITabBarProps) => {
         />
         <TabBarAddButton newTab={props.newTab} onAddTab={onAddTab} />
       </div>
-      <TabBarPanels hiddenPanel={props.hiddenPanel} tabList={tabList} isActive={isActive} />
+      <TabBarPanels hiddenPanel={props.hiddenPanel} tabList={tabList} isActiveTab={isActiveTab} />
     </>
   );
 };

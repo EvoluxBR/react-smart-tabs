@@ -4,17 +4,17 @@ import TabBarPanel from './tab-bar-panel';
 
 export interface ITabBarPanelsProps {
   hiddenPanel: boolean;
-  isActive: (tab: ITab) => boolean;
+  isActiveTab: (tab: ITab) => boolean;
   tabList: ITab[];
 }
 
-const TabBarPanels = ({ hiddenPanel, isActive, tabList }: ITabBarPanelsProps) => {
+const TabBarPanels = ({ hiddenPanel, isActiveTab, tabList }: ITabBarPanelsProps) => {
   if (hiddenPanel && !tabList.length) return null;
 
   return (
     <>
       {tabList.map((tab: ITab) => (
-        <TabBarPanel key={tab.id} tab={tab} isActive={isActive} />
+        <TabBarPanel key={tab.id} tab={tab} isActiveTab={isActiveTab} />
       ))}
     </>
   );

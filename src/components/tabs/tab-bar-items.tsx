@@ -6,8 +6,8 @@ export interface ITabBarItemsProps {
   tabList: ITab[];
   refList: MutableRefObject<RefObject<HTMLLIElement>[]>;
   refTabBar: RefObject<HTMLUListElement>;
-  isActive: (tab: ITab) => boolean;
-  onElementDrag: (event: MouseEvent<HTMLElement>) => void;
+  isActiveTab: (tab: ITab) => boolean;
+  onTabBarMouseMove: (event: MouseEvent<HTMLElement>) => void;
   onCloseDragElement: (event: MouseEvent<HTMLElement>) => void;
   onRemoveTab: (id: string, event: MouseEvent<HTMLElement>, tab: ITab) => void;
   onDragMouseDown: (event: MouseEvent<HTMLElement>, tab: ITab) => void;
@@ -16,12 +16,12 @@ export interface ITabBarItemsProps {
 }
 
 const TabBarItems = ({
-  isActive,
+  isActiveTab,
   tabList,
   refList,
   refTabBar,
   onCloseDragElement,
-  onElementDrag,
+  onTabBarMouseMove,
   onRemoveTab,
   onDragMouseDown,
   closeable,
@@ -29,7 +29,7 @@ const TabBarItems = ({
 }: ITabBarItemsProps) => (
   <ul
     className="tab__bar"
-    onMouseMove={onElementDrag}
+    onMouseMove={onTabBarMouseMove}
     onMouseLeave={onCloseDragElement}
     ref={refTabBar}
   >
@@ -38,7 +38,7 @@ const TabBarItems = ({
         key={tab.id}
         refItem={refList.current[index]}
         tab={tab}
-        isActive={isActive}
+        isActiveTab={isActiveTab}
         onCloseDragElement={onCloseDragElement}
         onRemoveTab={onRemoveTab}
         onDragMouseDown={onDragMouseDown}

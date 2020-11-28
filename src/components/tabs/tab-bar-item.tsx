@@ -6,7 +6,7 @@ import cancelSvg from './cancel.svg';
 export interface ITabBarItemProps {
   tab: ITab;
   refItem: RefObject<HTMLLIElement>;
-  isActive: (tab: ITab) => boolean;
+  isActiveTab: (tab: ITab) => boolean;
   onCloseDragElement: (event: MouseEvent<HTMLElement>) => void;
   onRemoveTab: (id: string, event: MouseEvent<HTMLElement>, tab: ITab) => void;
   onDragMouseDown: (event: MouseEvent<HTMLElement>, tab: ITab) => void;
@@ -17,7 +17,7 @@ export interface ITabBarItemProps {
 const TabBarItem = ({
   tab,
   refItem,
-  isActive,
+  isActiveTab,
   onDragMouseDown,
   onCloseDragElement,
   onRemoveTab,
@@ -30,7 +30,7 @@ const TabBarItem = ({
       id={tab.id}
       key={tab.id}
       ref={refItem}
-      className={isActive(tab) ? `${classNameActive || 'active'} reposition` : className}
+      className={isActiveTab(tab) ? `${classNameActive || 'active'} reposition` : className}
       onMouseDown={event => onDragMouseDown(event, tab)}
       onMouseUp={onCloseDragElement}
     >
